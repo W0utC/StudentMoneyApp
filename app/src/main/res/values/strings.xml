@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">StudentMoneyApp</string>
+
+    <string-array name="payment_methode">
+        <item>card zelf</item>
+        <item>cash zelf</item>
+        <item>ouders</item>
+    </string-array>
+
+    <string-array name="categories">
+        <item>eten</item>
+        <item>uitgaan</item>
+        <item>sport</item>
+        <item>tinder</item>
+        <item>lol</item>
+        <item>lol</item>
+    </string-array>
+
+
 </resources>
