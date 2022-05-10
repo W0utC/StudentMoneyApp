@@ -29,12 +29,18 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class Transaction extends AppCompatActivity {
+//INTERESANT OM NOG TO DOEN
+// GEEFT EEN ERRORMESSAGE NAARST DE FIELD EN ZGT DAT DIE NIET LEEG MAG ZIJN
+//EditText etUserName = (EditText) findViewById(R.id.txtUsername);
+//String strUserName = etUserName.getText().toString();
+//
+// if(TextUtils.isEmpty(strUserName)) {
+//    etUserName.setError("Your message");
+//    return;
+// }
 
-    private TextView textViewOne;
-    private TextView textViewTwo;
-    private TextView textViewThree;
-    private TextView textViewFore;
+public class Transaction extends AppCompatActivity {
+    
     private Spinner category;
     private Spinner paymentMethode;
     private EditText txtAmount;
@@ -50,10 +56,6 @@ public class Transaction extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.transaction_page);
 
-        textViewOne = (TextView) findViewById(R.id.txtMain1);
-        textViewTwo = (TextView) findViewById(R.id.txtMain2);
-        textViewThree = (TextView) findViewById(R.id.txtMain3);
-        textViewFore = (TextView) findViewById(R.id.txtMain4);
         category = (Spinner) findViewById(R.id.category);
         paymentMethode = (Spinner) findViewById(R.id.paymentMethode);
         txtAmount = (EditText) findViewById(R.id.txtAmount);
@@ -61,24 +63,32 @@ public class Transaction extends AppCompatActivity {
     }
 
     public void onBtnSubmit_Clicked(View caller){
+        if(checkReadySubmit()) {
+            String date = getCurrentDateAndTime();
+            String type = category.getSelectedItem().toString();
+            String amount = txtAmount.getText().toString();
+            String methode = paymentMethode.getSelectedItem().toString();
+            String store = txtStore.getText().toString();
 
-        String date = getCurrentDateAndTime();
-        String type = category.getSelectedItem().toString();
-        String amount = txtAmount.getText().toString();
-        String methode = paymentMethode.getSelectedItem().toString();
-        String store = txtStore.getText().toString();
+            requestURL = SUBMIT_URL + "/" + date
+                    + "/" + type
+                    + "/" + amount
+                    + "/" + methode
+                    + "/" + store;
+            Log.i("Database", "requestURL: " + requestURL);
 
-        requestURL = SUBMIT_URL + "/" + date
-                + "/" + type
-                + "/" + amount
-                + "/" + methode
-                + "/" + store;
-        Log.i("Database", "requestURL: " + requestURL);
-
-        finish();
-        storeToDataBase();
+            finish();
+            storeToDataBase();
+        }
     }
 
+    private boolean checkReadySubmit() {
+        return !isEmpty(txtAmount) && !isEmpty(txtStore);
+    }
+
+    private boolean isEmpty(EditText etText) {
+        return etText.getText().toString().trim().length() <= 0;
+    }
 
     public String updatePreviewList(){ //probleem met dit is dat er een nieuw activity gemakt wordt en niet het oude aanpast.
         String type = category.getSelectedItem().toString();

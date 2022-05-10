@@ -4,37 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_main_screen"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnAddNew"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onBtnAddNew_Clicked"
-        android:text="Add new transaction"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.238" />
-
-    <Button
-        android:id="@+id/btnViewData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onBtnViewData_Clicked"
-        android:text="view data"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.44" />
-
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="315dp"
         android:layout_height="160dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="60dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,5 +52,36 @@
             android:textSize="20sp" />
 
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnViewData"
+        android:layout_width="364dp"
+        android:layout_height="108dp"
+        android:layout_marginBottom="112dp"
+        android:backgroundTint="@color/transparent"
+        android:onClick="onBtnViewData_Clicked"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.659"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAddNew"
+        app:layout_constraintVertical_bias="0.732"
+        app:srcCompat="@drawable/overview_v2" />
+
+    <ImageButton
+        android:id="@+id/btnAddNew"
+        android:layout_width="364dp"
+        android:layout_height="108dp"
+        android:layout_marginTop="112dp"
+        android:backgroundTint="@color/transparent"
+        android:onClick="onBtnAddNew_Clicked"
+        android:scaleType="centerCrop"
+        android:tint="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.659"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/new_button_v3" />
 
 </android.support.constraint.ConstraintLayout>

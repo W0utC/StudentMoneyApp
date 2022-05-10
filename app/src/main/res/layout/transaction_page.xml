@@ -2,21 +2,22 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background_v2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="233dp"
-        android:layout_height="212dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="369dp"
+        android:layout_height="112dp"
+        android:layout_marginBottom="64dp"
+        android:backgroundTint="@color/transparent"
         android:onClick="onBtnSubmit_Clicked"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/pay"
+        app:srcCompat="@drawable/done_button_v2"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
@@ -28,6 +29,10 @@
         android:hint="money"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
+        android:background="@drawable/money_background"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,9 +41,10 @@
     <Spinner
         android:id="@+id/paymentMethode"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="340dp"
         android:entries="@array/payment_methode"
+        android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
@@ -49,6 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:entries="@array/categories"
+        android:spinnerMode="dropdown"
         app:layout_constraintBottom_toTopOf="@+id/paymentMethode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,12 +63,16 @@
 
     <EditText
         android:id="@+id/txtStore"
-        android:layout_width="139dp"
-        android:layout_height="48dp"
+        android:layout_width="144dp"
+        android:layout_height="56dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/category_button"
         android:ems="10"
+        android:gravity="center"
         android:hint="winkel"
+        android:textColorHint="@color/white"
         android:inputType="textPersonName"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtAmount" />
