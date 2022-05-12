@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -75,7 +76,7 @@ public class Transaction extends AppCompatActivity {
                     + "/" + amount
                     + "/" + methode
                     + "/" + store;
-            Log.i("Database", "requestURL: " + requestURL);
+            //Log.i("Database", "requestURL: " + requestURL);
 
             finish();
             storeToDataBase();
@@ -83,31 +84,17 @@ public class Transaction extends AppCompatActivity {
     }
 
     private boolean checkReadySubmit() {
+        if(isEmpty(txtAmount)) {
+            txtAmount.setError("fill in!");
+        }
+        if(isEmpty(txtStore)) {
+            txtStore.setError("fill in!");
+        }
         return !isEmpty(txtAmount) && !isEmpty(txtStore);
     }
 
     private boolean isEmpty(EditText etText) {
         return etText.getText().toString().trim().length() <= 0;
-    }
-
-    public String updatePreviewList(){ //probleem met dit is dat er een nieuw activity gemakt wordt en niet het oude aanpast.
-        String type = category.getSelectedItem().toString();
-        String methode = paymentMethode.getSelectedItem().toString();
-        String amount = txtAmount.getText().toString();
-        String euro = "\u20ac";
-
-        StringBuilder string = new StringBuilder();
-        string.append(getCurrentDate());
-        string.append(": " + type);
-        string.append(" , " + euro + amount);
-        String tempString = string.toString();
-        Log.i("Date", tempString);
-
-        //textViewFore.setText(textViewThree.getText());
-        //textViewThree.setText(textViewTwo.getText());
-        //textViewTwo.setText(textViewOne.getText());
-        //textViewOne.setText(tempString);
-        return tempString;
     }
 
     public void storeToDataBase(){
@@ -150,7 +137,7 @@ public class Transaction extends AppCompatActivity {
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd+HH:mm:ss");
         String dateTime = LocalDateTime.now().format(format);
-        Log.i("Data", "The date and time at which this is executed is 2: " + dateTime);
+        //Log.i("Data", "The date and time at which this is executed is 2: " + dateTime);
         return dateTime;
 
     }

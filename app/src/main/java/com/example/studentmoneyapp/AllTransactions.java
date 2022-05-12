@@ -24,10 +24,12 @@ public class AllTransactions {
     private String requestURL;
     private static final String SUBMIT_URL = "https://studev.groept.be/api/a21pt114/addTransactions";
     private static final String GET_URL = "https://studev.groept.be/api/a21pt114/getTransactions";
+    private Context context;
 
     private List<SingleTransaction> singleTransactionList;
 
     public AllTransactions(Context context){
+        this.context = context;
         singleTransactionList = new ArrayList<>();
         Log.i("AllTransactionsClass", "I started running");
         setTransactions(context);
@@ -77,6 +79,18 @@ public class AllTransactions {
                 }
         );
         requestQueue.add(getRequest);
+        Log.i("AllTransactionsClass", "I stopped running");
+        //Log.i("AllTransactionsClass", "singleTransaction size: " + getSingleTransactionList().size());
+
+    }
+
+    public void resetTransactions(){
+        clearAllTransactions();
+        setTransactions(context);
+    }
+
+    public void clearAllTransactions(){
+        singleTransactionList.clear();
     }
 
     public LocalDateTime setDateTime(String stDate){

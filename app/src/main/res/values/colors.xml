@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="buttonColor">#2ECBE9</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="whiteTransparent">#DDFFFFFF</color>
+
 </resources>

@@ -1,6 +1,7 @@
 package com.example.studentmoneyapp;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,13 +50,34 @@ public class MainActivity extends AppCompatActivity {
         txtMain4 = (TextView) findViewById(R.id.txtMain4);
         txtMain5 = (TextView) findViewById(R.id.txtMain5);
 
-        updatePreviewList();
+        /*boolean check = false;
+        int count = 0;
+        while(!check && count<30) {
+            check = updatePreviewList();
+            count++;
+            Log.i("MainActivity", "checkVal: " + String.valueOf(check));
+        }*/
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        allTransactions.resetTransactions();
         updatePreviewList();
+
+        //runAsyncUpdatePreviewList();
+
+        /*final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //runAsyncUpdatePreviewList();
+                //updatePreviewList();
+                //Do something after 100ms
+            }
+        }, 500);*/
     }
 
     public void onBtnAddNew_Clicked(View caller) {
@@ -68,12 +90,53 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onBtnResetData_Clicked(View caller) {
+        updatePreviewList();
+    }
+
+    public void runAsyncUpdatePreviewList(){
+        new Thread(() -> {
+            allTransactions = new AllTransactions(getApplicationContext());
+            // do background stuff here
+            runOnUiThread(()->{
+                updatePreviewList();
+                // OnPostExecute stuff here
+            });
+        }).start();
+    }
+
+    /*public void runAsyncUpdatePreviewList(){
+        Log.i("MainActivity", "runAsyncUpdatePreviewList started");
+
+        new TaskRunner(MainActivity.this) {
+            @Override
+            public void doInBackground() {
+                Log.i("MainActivity", "runAsyncUpdatePreviewList started in background");
+                allTransactions = new AllTransactions(getApplicationContext());
+                //put you background code
+                //same like doingBackground
+                //Background Thread
+            }
+
+            @Override
+            public void onPostExecute() {
+                Log.i("MainActivity", "runAsyncUpdatePreviewList started on post execute");
+                Log.i("MainActivity", "runAsyncUpdatePreviewList on execute size: " + allTransactions.getSingleTransactionList().size());
+                updatePreviewList();
+                //hear is result part same
+                //same like post execute
+                //UI Thread(update your UI widget)
+            }
+        }.execute();
+    }*/
+
     public void updatePreviewList() {
         int length;
         //List<SingleTransaction> transactions = new ArrayList<>(allTransactions);
 
         int sizeSingleTransactionList = allTransactions.getSingleTransactionList().size();
-        Log.i("updatePreviewList", String.valueOf(sizeSingleTransactionList));
+        Log.i("MainActivity", "size of SingleTransactionList: " + String.valueOf(sizeSingleTransactionList));
+
 
         if(sizeSingleTransactionList<1) length = 0;
         else if(sizeSingleTransactionList<2) length = 1;
@@ -82,8 +145,16 @@ public class MainActivity extends AppCompatActivity {
         else if(sizeSingleTransactionList<5) length = 4;
         else length = sizeSingleTransactionList-5;
 
+        /*
+        if(sizeSingleTransactionList<6) length = sizeSingleTransactionList-5;
+        else if(sizeSingleTransactionList<5) length = 4;
+        else if(sizeSingleTransactionList<4) length = 3;
+        else if(sizeSingleTransactionList<3) length = 2;
+        else if(sizeSingleTransactionList<2) length = 1;
+        else length = 0;*/
+
         for (int i = length; i < sizeSingleTransactionList; i++) {
-            Log.i("txtUpdate", "value of i : " + String.valueOf(i));
+            Log.i("MainActivity", "value of i : " + String.valueOf(i));
             String date = "";
             //String type = "";
             String amount = "";
@@ -101,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                 store = allTransactions.getSingleTransactionList().get(i).getStore();
 
                 String tempString = date + ": " + euro + amount + " " + store;
-                Log.i("txtUpdate", "temp string equals to: " + tempString);
+                Log.i("MainActivity", "temp string equals to: " + tempString);
                 if (i==sizeSingleTransactionList-1) txtMain1.setText(tempString);
                 if (i==sizeSingleTransactionList-2) txtMain2.setText(tempString);
                 if (i==sizeSingleTransactionList-3) txtMain3.setText(tempString);
@@ -111,13 +182,12 @@ public class MainActivity extends AppCompatActivity {
                 //Log.i("printer", singleTransaction.toString());
                 //transactions.add(singleTransaction);
             } catch (Exception e) {
-                Log.e("updatePreviewList", e.toString());
+                Log.e("MainActivity", e.toString());
                 e.printStackTrace();
 
             }
         }
     }
-
 
 
     //public void updatePreviewList() { // TODO aanpassen zodat van transactions (arrayList) de data haalt en niet nog is van dataBase
