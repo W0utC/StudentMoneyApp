@@ -98,4 +98,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/stat_notify_sync" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_buttons"
+        android:onClick="onBtnTest_Clicked"
+        android:text="test scrollable activity"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnViewData"
+        app:layout_constraintVertical_bias="0.301" />
+
+
 </android.support.constraint.ConstraintLayout>

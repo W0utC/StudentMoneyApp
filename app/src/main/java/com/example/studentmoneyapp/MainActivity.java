@@ -105,6 +105,11 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
+    public void onBtnTest_Clicked(View caller) {
+        Intent intent = new Intent(this, ScrollableTest.class);
+        startActivity(intent);
+    }
+
     /*public void runAsyncUpdatePreviewList(){
         Log.i("MainActivity", "runAsyncUpdatePreviewList started");
 

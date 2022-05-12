@@ -27,6 +27,9 @@
         <activity
             android:name=".ViewData"
             android:exported="true"/>
+        <activity
+            android:name=".ScrollableTest"
+            android:exported="true"/>
     </application>
 
 </manifest>

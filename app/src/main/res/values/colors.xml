@@ -10,5 +10,6 @@
     <color name="buttonColor">#2ECBE9</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="whiteTransparent">#DDFFFFFF</color>
+    <color name="darkBlue">#3F51B5</color>
 
 </resources>

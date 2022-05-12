@@ -23,7 +23,7 @@ public class ViewData extends AppCompatActivity {
         txtHistory.setMovementMethod(new ScrollingMovementMethod());
     }
 
-    public void onBtnTest_Clicked(View caller){
+    public void onBtnView_Clicked(View caller){
         //test();
         setTxtHistory();
     }
