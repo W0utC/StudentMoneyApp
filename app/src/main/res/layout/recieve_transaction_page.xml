@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background_v2">
+
+    <TextView
+        android:id="@+id/txtHead"
+        android:layout_width="162dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="72dp"
+        android:gravity="center"
+        android:text="@string/add_income"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/txtAmountReceive"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/txtAmountReceive"
+        android:layout_width="175dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="196dp"
+        android:background="@drawable/money_background"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="amount"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/whiteTransparent"
+        android:textCursorDrawable="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/categoryReceive"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:entries="@array/categoriesReceive"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/btnSubmitReceive"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAmountReceive"
+        app:layout_constraintVertical_bias="0.248" />
+
+    <Spinner
+        android:id="@+id/ReceiveMethode"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginTop="36dp"
+        android:entries="@array/receive_methode"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoryReceive" />
+
+    <ImageButton
+        android:id="@+id/btnSubmitReceive"
+        android:layout_width="369dp"
+        android:layout_height="112dp"
+        android:layout_marginBottom="64dp"
+        android:backgroundTint="@color/transparent"
+        android:onClick="onbtnSubmitReceive_Clicked"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/done_button_v2"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

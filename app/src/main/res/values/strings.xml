@@ -1,20 +1,39 @@
 <resources>
     <string name="app_name">StudentMoneyApp</string>
+    <string name="add_expense">add expense</string>
+    <string name="add_income">add income</string>
 
     <string-array name="payment_methode">
         <item>card</item>
         <item>cash</item>
         <item>parents</item>
+        <item>bald_eagles</item>
+        <item>maple_leaves</item>
+        <item>reichsmark</item>
     </string-array>
 
     <string-array name="categories">
         <item>food</item>
         <item>goingOut</item>
         <item>sport</item>
-        <item>tinder</item>
-        <item>lol</item>
-        <item>lol</item>
+        <item>tech</item>
+        <item>varia</item>
     </string-array>
 
+
+    <string-array name="receive_methode">
+        <item>card</item>
+        <item>cash</item>
+        <item>bald_eagles</item>
+        <item>maple_leaves</item>
+        <item>reichsmark</item>
+    </string-array>
+
+    <string-array name="categoriesReceive">
+        <item>parents</item>
+        <item>work</item>
+        <item>loaned</item>
+        <item>varia</item>
+    </string-array>
 
 </resources>

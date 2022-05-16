@@ -1,6 +1,5 @@
 package com.example.studentmoneyapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,22 +19,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-//INTERESANT OM NOG TO DOEN
-// GEEFT EEN ERRORMESSAGE NAARST DE FIELD EN ZGT DAT DIE NIET LEEG MAG ZIJN
-//EditText etUserName = (EditText) findViewById(R.id.txtUsername);
-//String strUserName = etUserName.getText().toString();
-//
-// if(TextUtils.isEmpty(strUserName)) {
-//    etUserName.setError("Your message");
-//    return;
-// }
+public class TransactionReceive extends AppCompatActivity {
 
-public class Transaction extends AppCompatActivity {
-    
     private Spinner category;
     private Spinner paymentMethode;
     private EditText txtAmount;
-    private EditText txtStore;
 
     private RequestQueue requestQueue;
     private String requestURL;
@@ -45,48 +33,38 @@ public class Transaction extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.transaction_page);
+        setContentView(R.layout.recieve_transaction_page);
 
-        category = (Spinner) findViewById(R.id.category);
-        paymentMethode = (Spinner) findViewById(R.id.paymentMethode);
-        txtAmount = (EditText) findViewById(R.id.txtAmount);
-        txtStore = (EditText) findViewById(R.id.txtStore);
+        category = (Spinner) findViewById(R.id.categoryReceive);
+        paymentMethode = (Spinner) findViewById(R.id.ReceiveMethode);
+        txtAmount = (EditText) findViewById(R.id.txtAmountReceive);
     }
 
-    public void onBtnSubmit_Clicked(View caller){
+    public void onbtnSubmitReceive_Clicked(View caller){
         if(checkReadySubmit()) {
             String date = getCurrentDateAndTime();
             String type = category.getSelectedItem().toString();
-            String amount = "-" + txtAmount.getText().toString(); // original: String amount = txtAmount.getText().toString();
+            String amount = txtAmount.getText().toString();
             String methode = paymentMethode.getSelectedItem().toString();
-            String store = txtStore.getText().toString();
+            String store = "-1";
 
             requestURL = SUBMIT_URL + "/" + date
                     + "/" + type
                     + "/" + amount
                     + "/" + methode
                     + "/" + store;
-            Log.i("Transaction", "requestURL: " + requestURL);
+            //Log.i("Database", "requestURL: " + requestURL);
 
             finish();
             storeToDataBase();
         }
     }
 
-    public void onBtnReceive_Clicked(View caller) {
-        finish();
-        Intent intent = new Intent(this, TransactionReceive.class);
-        startActivity(intent);
-    }
-
     private boolean checkReadySubmit() {
         if(isEmpty(txtAmount)) {
             txtAmount.setError("fill in!");
         }
-        if(isEmpty(txtStore)) {
-            txtStore.setError("fill in!");
-        }
-        return !isEmpty(txtAmount) && !isEmpty(txtStore);
+        return !isEmpty(txtAmount);
     }
 
     private boolean isEmpty(EditText etText) {
@@ -99,7 +77,7 @@ public class Transaction extends AppCompatActivity {
                 response -> {
                     CharSequence text = "new payment added";
                     int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(Transaction.this, text, duration);
+                    Toast toast = Toast.makeText(TransactionReceive.this, text, duration);
                     toast.show();
                     Log.d("Database", "transaction added");
                 },
@@ -107,7 +85,7 @@ public class Transaction extends AppCompatActivity {
                 error -> {
                     CharSequence text = "Unable to place the order";
                     int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(Transaction.this, text, duration);
+                    Toast toast = Toast.makeText(TransactionReceive.this, text, duration);
                     toast.show();
                     Log.d("Database", error.getLocalizedMessage(), error);
                 }

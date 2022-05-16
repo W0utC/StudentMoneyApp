@@ -79,19 +79,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtAmount" />
 
-    <CheckedTextView
-        android:id="@+id/chtxtDefaultTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checkMark="@android:drawable/checkbox_on_background"
-        android:checked="true"
-        android:text="current date and time"
-        android:visibility="invisible"
+    <ImageButton
+        android:id="@+id/btnReceive"
+        android:layout_width="181dp"
+        android:layout_height="52dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="onBtnReceive_Clicked"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/imageButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/paymentMethode"
-        app:layout_constraintVertical_bias="0.227" />
+        app:srcCompat="@drawable/category_button" />
+
+    <TextView
+        android:id="@+id/txtHead"
+        android:layout_width="162dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/add_expense"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        android:textColor="@color/black"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/txtAmount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
