@@ -20,6 +20,8 @@ public class ViewData extends AppCompatActivity {
     TextView txtHistory;
     AllTransactions allTransactions;
 
+    //hallooo
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
