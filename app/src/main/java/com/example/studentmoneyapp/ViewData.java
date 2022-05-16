@@ -10,7 +10,7 @@ import android.widget.TextView;
 public class ViewData extends AppCompatActivity {
     TextView txtHistory;
     AllTransactions allTransactions;
-
+//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
