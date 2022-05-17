@@ -20,16 +20,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-//INTERESANT OM NOG TO DOEN
-// GEEFT EEN ERRORMESSAGE NAARST DE FIELD EN ZGT DAT DIE NIET LEEG MAG ZIJN
-//EditText etUserName = (EditText) findViewById(R.id.txtUsername);
-//String strUserName = etUserName.getText().toString();
-//
-// if(TextUtils.isEmpty(strUserName)) {
-//    etUserName.setError("Your message");
-//    return;
-// }
-
 public class Transaction extends AppCompatActivity {
     
     private Spinner category;

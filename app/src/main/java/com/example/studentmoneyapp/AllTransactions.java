@@ -17,16 +17,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllTransactions {
+public class AllTransactions{
 
     private RequestQueue requestQueue;
     private TextView txtResponse;
     private String requestURL;
     private static final String SUBMIT_URL = "https://studev.groept.be/api/a21pt114/addTransactions";
     private static final String GET_URL = "https://studev.groept.be/api/a21pt114/getTransactions";
-    private Context context;
+    private final Context context;
 
-    private List<SingleTransaction> singleTransactionList;
+    private final ArrayList<SingleTransaction> singleTransactionList; //arrayList of al the transactions
 
     public AllTransactions(Context context){
         this.context = context;
@@ -35,13 +35,14 @@ public class AllTransactions {
         setTransactions(context);
     }
 
-    public void setTransactions(Context context) {
+    public void setTransactions(Context context){
         requestQueue = Volley.newRequestQueue(context);
+
 
         JsonArrayRequest getRequest = new JsonArrayRequest(Request.Method.GET, GET_URL, null,
 
                 response -> {
-                    String info = "";
+                    this.singleTransactionList.clear();
                     for (int i = 0; i < response.length(); ++i) {
                         LocalDateTime date = null;
                         String type = "";
@@ -49,12 +50,10 @@ public class AllTransactions {
                         String methode = "";
                         String store = "";
 
-                        //JSONObject o = null;
                         JSONObject o;
                         try {
                             o = response.getJSONObject(i);
 
-                            //date = LocalDateTime.parse(o.get("date").toString());
                             date = setDateTime(o.get("date").toString());
                             type = o.get("type").toString();
                             amount = Float.parseFloat(o.get("amount").toString());
@@ -62,15 +61,13 @@ public class AllTransactions {
                             store = o.get("store").toString();
 
                             SingleTransaction singleTransaction = new SingleTransaction(date, type, amount, methode, store);
-                            //Log.i("printer", singleTransaction.toString());
-                            singleTransactionList.add(singleTransaction);
-                            //Log.i("printer", "length of list: " + transactions.size());
+                            this.singleTransactionList.add(singleTransaction);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-
-
+                    TransactionClass.getInstance().setList(singleTransactionList); //declare singleTransactionList in TransactionClass so it can be accessed from anywhere
                 },
 
                 error -> {
@@ -80,8 +77,6 @@ public class AllTransactions {
         );
         requestQueue.add(getRequest);
         Log.i("AllTransactionsClass", "I stopped running");
-        //Log.i("AllTransactionsClass", "singleTransaction size: " + getSingleTransactionList().size());
-
     }
 
     public void resetTransactions(){
@@ -102,15 +97,6 @@ public class AllTransactions {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.parse(stDate, formatter);
 
-        /*
-        //of(int year, int month, int dayOfMonth, int hour, int minute, int second)
-        int year = Integer.parseInt(stDate.substring(0, 3));
-        int month = Integer.parseInt(stDate.substring(5, 6));;
-        int dayOfMonth = Integer.parseInt(stDate.substring(8, 9));;
-        int hour = Integer.parseInt(stDate.substring(11, 12));;
-        int minute = Integer.parseInt(stDate.substring(14, 15));;
-        int second = Integer.parseInt(stDate.substring(17, 18));;
-        //LocalDateTime date = toLocalDate(stDate);*/
         return dateTime;
     }
 

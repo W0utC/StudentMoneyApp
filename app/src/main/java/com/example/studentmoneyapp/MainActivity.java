@@ -31,23 +31,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        allTransactions = new AllTransactions(getApplicationContext());
-        //allTransactions.setTransactions(getApplicationContext());
-
         txtMain1 = (TextView) findViewById(R.id.txtMain1);
         txtMain2 = (TextView) findViewById(R.id.txtMain2);
         txtMain3 = (TextView) findViewById(R.id.txtMain3);
         txtMain4 = (TextView) findViewById(R.id.txtMain4);
         txtMain5 = (TextView) findViewById(R.id.txtMain5);
 
-        /*boolean check = false;
-        int count = 0;
-        while(!check && count<30) {
-            check = updatePreviewList();
-            count++;
-            Log.i("MainActivity", "checkVal: " + String.valueOf(check));
-        }*/
-
+        allTransactions = new AllTransactions(getApplicationContext());
     }
 
     @Override
@@ -79,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ViewData.class);
         startActivity(intent);
     }
+
+
 
     public void onBtnResetData_Clicked(View caller) {
         updatePreviewList();
@@ -130,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         //List<SingleTransaction> transactions = new ArrayList<>(allTransactions);
 
         int sizeSingleTransactionList = allTransactions.getSingleTransactionList().size();
-        Log.i("MainActivity", "size of SingleTransactionList: " + String.valueOf(sizeSingleTransactionList));
+        Log.i("MainActivity", "size of SingleTransactionList: " + sizeSingleTransactionList);
 
 
         if(sizeSingleTransactionList<1) length = 0;
@@ -139,14 +131,6 @@ public class MainActivity extends AppCompatActivity {
         else if(sizeSingleTransactionList<4) length = 3;
         else if(sizeSingleTransactionList<5) length = 4;
         else length = sizeSingleTransactionList-5;
-
-        /*
-        if(sizeSingleTransactionList<6) length = sizeSingleTransactionList-5;
-        else if(sizeSingleTransactionList<5) length = 4;
-        else if(sizeSingleTransactionList<4) length = 3;
-        else if(sizeSingleTransactionList<3) length = 2;
-        else if(sizeSingleTransactionList<2) length = 1;
-        else length = 0;*/
 
         for (int i = length; i < sizeSingleTransactionList; i++) {
             Log.i("MainActivity", "value of i : " + String.valueOf(i));
