@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.studentmoneyapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentMoneyApp">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,17 +22,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Transaction"
-            android:exported="true"/>
+            android:name=".activity.Transaction"
+            android:exported="true" />
         <activity
-            android:name=".ViewData"
-            android:exported="true"/>
+            android:name=".activity.ViewData"
+            android:exported="true" />
         <activity
-            android:name=".ScrollableTest"
-            android:exported="true"/>
+            android:name=".activity.ScrollableTest"
+            android:exported="true" />
         <activity
-            android:name=".TransactionReceive"
-            android:exported="true"/>
+            android:name=".activity.TransactionReceive"
+            android:exported="true" />
     </application>
 
 </manifest>

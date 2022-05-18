@@ -1,8 +1,9 @@
-package com.example.studentmoneyapp;
+package com.example.studentmoneyapp.activity;
 
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 
 
 import com.android.volley.RequestQueue;
+import com.example.studentmoneyapp.network.AllTransactions;
+import com.example.studentmoneyapp.R;
 
 public class MainActivity extends AppCompatActivity {
     private TextView txtMain1;
@@ -17,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtMain3;
     private TextView txtMain4;
     private TextView txtMain5;
-//
+    //
     private RequestQueue requestQueue;
     private TextView txtResponse;
     private String requestURL;
@@ -70,17 +73,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
     public void onBtnResetData_Clicked(View caller) {
         updatePreviewList();
     }
 
-    public void runAsyncUpdatePreviewList(){
+    public void runAsyncUpdatePreviewList() {
         new Thread(() -> {
             allTransactions = new AllTransactions(getApplicationContext());
             // do background stuff here
-            runOnUiThread(()->{
+            runOnUiThread(() -> {
                 updatePreviewList();
                 // OnPostExecute stuff here
             });
@@ -125,12 +126,12 @@ public class MainActivity extends AppCompatActivity {
         Log.i("MainActivity", "size of SingleTransactionList: " + sizeSingleTransactionList);
 
 
-        if(sizeSingleTransactionList<1) length = 0;
-        else if(sizeSingleTransactionList<2) length = 1;
-        else if(sizeSingleTransactionList<3) length = 2;
-        else if(sizeSingleTransactionList<4) length = 3;
-        else if(sizeSingleTransactionList<5) length = 4;
-        else length = sizeSingleTransactionList-5;
+        if (sizeSingleTransactionList < 1) length = 0;
+        else if (sizeSingleTransactionList < 2) length = 1;
+        else if (sizeSingleTransactionList < 3) length = 2;
+        else if (sizeSingleTransactionList < 4) length = 3;
+        else if (sizeSingleTransactionList < 5) length = 4;
+        else length = sizeSingleTransactionList - 5;
 
         for (int i = length; i < sizeSingleTransactionList; i++) {
             Log.i("MainActivity", "value of i : " + String.valueOf(i));
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 //date = LocalDateTime.parse(o.get("date").toString());
                 date = allTransactions.getSingleTransactionList().get(i).getDate().toString();
-                date = date.substring(0,10);
+                date = date.substring(0, 10);
                 //type = transactions.get(i).getType();
                 amount = String.valueOf(allTransactions.getSingleTransactionList().get(i).getAmount());
                 //methode = transactions.get(i).getMethode();
@@ -152,11 +153,11 @@ public class MainActivity extends AppCompatActivity {
 
                 String tempString = date + ": " + euro + amount + " " + store;
                 Log.i("MainActivity", "temp string equals to: " + tempString);
-                if (i==sizeSingleTransactionList-1) txtMain1.setText(tempString);
-                if (i==sizeSingleTransactionList-2) txtMain2.setText(tempString);
-                if (i==sizeSingleTransactionList-3) txtMain3.setText(tempString);
-                if (i==sizeSingleTransactionList-4) txtMain4.setText(tempString);
-                if (i==sizeSingleTransactionList-5) txtMain5.setText(tempString);
+                if (i == sizeSingleTransactionList - 1) txtMain1.setText(tempString);
+                if (i == sizeSingleTransactionList - 2) txtMain2.setText(tempString);
+                if (i == sizeSingleTransactionList - 3) txtMain3.setText(tempString);
+                if (i == sizeSingleTransactionList - 4) txtMain4.setText(tempString);
+                if (i == sizeSingleTransactionList - 5) txtMain5.setText(tempString);
 
                 //Log.i("printer", singleTransaction.toString());
                 //transactions.add(singleTransaction);

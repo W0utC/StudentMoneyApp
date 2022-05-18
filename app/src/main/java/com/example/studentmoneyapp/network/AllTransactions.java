@@ -1,4 +1,4 @@
-package com.example.studentmoneyapp;
+package com.example.studentmoneyapp.network;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,6 +8,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.studentmoneyapp.model.SingleTransaction;
+import com.example.studentmoneyapp.utils.TransactionClass;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllTransactions{
+public class AllTransactions {
 
     private RequestQueue requestQueue;
     private TextView txtResponse;
@@ -28,14 +30,14 @@ public class AllTransactions{
 
     private final ArrayList<SingleTransaction> singleTransactionList; //arrayList of al the transactions
 
-    public AllTransactions(Context context){
+    public AllTransactions(Context context) {
         this.context = context;
         singleTransactionList = new ArrayList<>();
         Log.i("AllTransactionsClass", "I started running");
         setTransactions(context);
     }
 
-    public void setTransactions(Context context){
+    public void setTransactions(Context context) {
         requestQueue = Volley.newRequestQueue(context);
 
 
@@ -79,16 +81,16 @@ public class AllTransactions{
         Log.i("AllTransactionsClass", "I stopped running");
     }
 
-    public void resetTransactions(){
+    public void resetTransactions() {
         clearAllTransactions();
         setTransactions(context);
     }
 
-    public void clearAllTransactions(){
+    public void clearAllTransactions() {
         singleTransactionList.clear();
     }
 
-    public LocalDateTime setDateTime(String stDate){
+    public LocalDateTime setDateTime(String stDate) {
         /*String dateString = stDate.substring(0, 9);
         String timeString = stDate.substring(11, 18);
         String completeDateString = dateString + "T" + timeString;

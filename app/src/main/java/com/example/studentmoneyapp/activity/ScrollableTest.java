@@ -1,10 +1,14 @@
-package com.example.studentmoneyapp;
+package com.example.studentmoneyapp.activity;
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.Toast;
+
+import com.example.studentmoneyapp.R;
 
 public class ScrollableTest extends AppCompatActivity {
     @Override
@@ -21,5 +25,4 @@ public class ScrollableTest extends AppCompatActivity {
         Toast toast = Toast.makeText(ScrollableTest.this, text, duration);
         toast.show();
     }
-
 }

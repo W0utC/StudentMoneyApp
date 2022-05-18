@@ -1,4 +1,4 @@
-package com.example.studentmoneyapp;
+package com.example.studentmoneyapp.model;
 
 import java.time.LocalDateTime;
 
@@ -9,7 +9,7 @@ public class SingleTransaction {
     private String methode;
     private String store;
 
-    SingleTransaction(LocalDateTime date, String type, float amount, String methode, String store){
+    public SingleTransaction(LocalDateTime date, String type, float amount, String methode, String store) {
         this.date = date;
         this.type = type;
         this.amount = amount;

@@ -1,6 +1,7 @@
-package com.example.studentmoneyapp;
+package com.example.studentmoneyapp.activity;
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.studentmoneyapp.R;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -40,8 +42,8 @@ public class TransactionReceive extends AppCompatActivity {
         txtAmount = (EditText) findViewById(R.id.txtAmountReceive);
     }
 
-    public void onbtnSubmitReceive_Clicked(View caller){
-        if(checkReadySubmit()) {
+    public void onbtnSubmitReceive_Clicked(View caller) {
+        if (checkReadySubmit()) {
             String date = getCurrentDateAndTime();
             String type = category.getSelectedItem().toString();
             String amount = txtAmount.getText().toString();
@@ -61,7 +63,7 @@ public class TransactionReceive extends AppCompatActivity {
     }
 
     private boolean checkReadySubmit() {
-        if(isEmpty(txtAmount)) {
+        if (isEmpty(txtAmount)) {
             txtAmount.setError("fill in!");
         }
         return !isEmpty(txtAmount);
@@ -71,8 +73,8 @@ public class TransactionReceive extends AppCompatActivity {
         return etText.getText().toString().trim().length() <= 0;
     }
 
-    public void storeToDataBase(){
-        requestQueue = Volley.newRequestQueue( this );
+    public void storeToDataBase() {
+        requestQueue = Volley.newRequestQueue(this);
         JsonArrayRequest submitRequest = new JsonArrayRequest(Request.Method.GET, requestURL, null,
                 response -> {
                     CharSequence text = "new payment added";
@@ -93,13 +95,13 @@ public class TransactionReceive extends AppCompatActivity {
         requestQueue.add(submitRequest);
     }
 
-    public String getCurrentDate(){
+    public String getCurrentDate() {
         String date = LocalDate.now().toString();
         //Log.i("Date", "The date at which this is executed is: " + date);
         return date;
     }
 
-    public String getCurrentDateAndTime(){
+    public String getCurrentDateAndTime() {
         /*String time = LocalTime.now().toString();
         time = time.substring(0, time.length()-4);
         String date = getCurrentDate();

@@ -1,15 +1,21 @@
-package com.example.studentmoneyapp;
+package com.example.studentmoneyapp.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.studentmoneyapp.network.AllTransactions;
+import com.example.studentmoneyapp.R;
+import com.example.studentmoneyapp.model.SingleTransaction;
+import com.example.studentmoneyapp.utils.TransactionClass;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ViewData extends AppCompatActivity {
     TextView txtHistory;
@@ -32,23 +38,31 @@ public class ViewData extends AppCompatActivity {
         //test();
     }
 
-    public void onBtnView_Clicked(View caller){
-        setTxtHistory();
+    public void onBtnView_Clicked(View caller) {
+        //setTxtHistory();
+        showToast("get pranked, this button doesn't do anything anymore");
     }
 
-    public void setTxtHistory(){
-        for(int i = 0; i<transactions.size(); i++){ //original: for(int i = 0; i<allTransactions.getSingleTransactionList().size(); i++){
+    public void showToast(String message) {
+        CharSequence text = message;
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(ViewData.this, text, duration);
+        toast.show();
+    }
+
+    public void setTxtHistory() {
+        for (int i = 0; i < transactions.size(); i++) { //original: for(int i = 0; i<allTransactions.getSingleTransactionList().size(); i++){
             String str = getTxtHistory(i);
             txtHistory.append(str + '\n');
         }
 
     }
 
-    public String getTxtHistory(int pos){
+    public String getTxtHistory(int pos) {
         String tempStr = "";
 
         String date = transactions.get(pos).getDate().toString(); //original: String date = allTransactions.getSingleTransactionList().get(pos).getDate().toString();
-        date = date.substring(0,10);
+        date = date.substring(0, 10);
         String amount = String.valueOf(transactions.get(pos).getAmount()); //original: String amount = String.valueOf(allTransactions.getSingleTransactionList().get(pos).getAmount());
         String store = transactions.get(pos).getStore(); //original: String store = allTransactions.getSingleTransactionList().get(pos).getStore();
         String euro = "\u20ac";
@@ -57,16 +71,16 @@ public class ViewData extends AppCompatActivity {
         return tempStr;
     }
 
-    public void test(){
+    public void test() {
         Log.i("ViewData", "------------------------");
 
         //Log.i("ViewData", "first element in TransactionClass: " + TransactionClass.getInstance().getList().get(0).toString());
         Log.i("ViewData", "first element in TransactionClass: " + transactions.toString());
         //Log.i("ViewData", "first element in AllTransactions: " + allTransactions.getSingleTransactionList().get(0));
 
-        for(SingleTransaction s : transactions){
+        for (SingleTransaction s : transactions) {
             String date = s.getDate().toString();
-            date = date.substring(0,10);
+            date = date.substring(0, 10);
             String amount = String.valueOf(s.getAmount());
             String store = s.getStore();
             String euro = "\u20ac";
