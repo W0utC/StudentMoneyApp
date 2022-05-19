@@ -1,26 +1,33 @@
 package com.example.studentmoneyapp.activity;
 
+import static java.lang.Math.abs;
+
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.studentmoneyapp.network.AllTransactions;
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Pie;
+import com.anychart.enums.Align;
+import com.anychart.enums.LegendLayout;
 import com.example.studentmoneyapp.R;
 import com.example.studentmoneyapp.model.SingleTransaction;
 import com.example.studentmoneyapp.utils.TransactionClass;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ViewData extends AppCompatActivity {
     TextView txtHistory;
-    AllTransactions allTransactions;
     ArrayList<SingleTransaction> transactions;
+    AnyChartView anyChartView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,29 +36,75 @@ public class ViewData extends AppCompatActivity {
 
 
         transactions = new ArrayList<>(TransactionClass.getInstance().getList()); //declare array list and put in the transactions
-        //allTransactions = new AllTransactions(getApplicationContext());
 
         txtHistory = (TextView) findViewById(R.id.txtHistory);
         txtHistory.setMovementMethod(new ScrollingMovementMethod());
 
+        anyChartView = (AnyChartView) findViewById(R.id.any_chart_view);
+        setupPieChart();
+
         setTxtHistory();
-        //test();
     }
 
-    public void onBtnView_Clicked(View caller) {
-        //setTxtHistory();
-        showToast("get pranked, this button doesn't do anything anymore");
+    public void setupPieChart(){ //hadden achteraf mss beter google chart gebruikt of fusion charts
+        String[] categories = getResources().getStringArray(R.array.categories);
+        //float[] chartSumData = new float[] {}; // int[] a = new int[] {0, 0, 0, 0};
+
+        float[] chartSumData = getChartSumData(getTransactions());
+        Log.i("ViewData", "chartSumData: " + chartSumData[0]);
+
+        Pie pie = AnyChart.pie();
+        List<DataEntry> dataEntries = new ArrayList<>();
+        for (int i=0;i<chartSumData.length; ++i){
+            dataEntries.add(new ValueDataEntry(categories[i], abs(chartSumData[i])));
+        }
+
+        pie.data(dataEntries); //put the data in the pie
+        pie.title("expenses"); //set title of pie
+        pie.innerRadius(90); //radius in % of the pie
+        pie.labels().fontColor("595959"); //color of labels
+        pie.labels().position("inside"); //labels inside the pie
+        pie.insideLabelsOffset("-30%"); // set the offset for the labels
+
+        pie.background().fill("Snow"); //set background to a colour
+
+        pie.legend().title("category")
+                .fontColor("595959")
+                .title().fontColor("595959");
+        pie.legend()
+                .position("bottom")
+                .itemsLayout(LegendLayout.HORIZONTAL_EXPANDABLE)
+                .align(Align.CENTER);
+
+        anyChartView.setChart(pie); //build and show the pie
     }
 
-    public void showToast(String message) {
-        CharSequence text = message;
-        int duration = Toast.LENGTH_LONG;
-        Toast toast = Toast.makeText(ViewData.this, text, duration);
-        toast.show();
+    public float[] getChartSumData(ArrayList<SingleTransaction> transactions){ // TODO better to work with ExpenseSumPair
+        float sumFood = 0;
+        float sumGoingOut = 0;
+        float sumSport = 0;
+        float sumTech = 0;
+        float sumVaria = 0;
+
+        for(SingleTransaction sl : transactions){
+            String type = sl.getType();
+            float amount = sl.getAmount();
+            if (type.equals("food")) {
+                sumFood = sumFood + amount;
+                //Log.i("ViewData", "sumFood: " + sumFood);
+            }
+            if (type.equals("goingOut")) sumGoingOut = sumGoingOut + amount;
+            if (type.equals("sport")) sumSport = sumSport + amount;
+            if (type.equals("tech")) sumTech = sumTech + amount;
+            if (type.equals("varia")) sumVaria = sumVaria + amount;
+        }
+        float[] chartSum = new float[] {sumFood, sumGoingOut, sumSport, sumTech, sumVaria};
+        Log.i("ViewData","chartSum: " + chartSum[0] + ", " + chartSum[1] + ", " + chartSum[2] + ", " + chartSum[3] + ", " + chartSum[4]);
+        return chartSum;
     }
 
     public void setTxtHistory() {
-        for (int i = 0; i < transactions.size(); i++) { //original: for(int i = 0; i<allTransactions.getSingleTransactionList().size(); i++){
+        for (int i = 0; i < getTransactions().size(); i++) { //original: for(int i = 0; i<allTransactions.getSingleTransactionList().size(); i++){
             String str = getTxtHistory(i);
             txtHistory.append(str + '\n');
         }
@@ -69,6 +122,10 @@ public class ViewData extends AppCompatActivity {
 
         tempStr = date + ": " + euro + amount + " " + store;
         return tempStr;
+    }
+
+    public ArrayList<SingleTransaction> getTransactions() {
+        return transactions;
     }
 
     public void test() {
