@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/background">
+    android:background="@drawable/expence_background">
 
     <TextView
         android:id="@+id/txtHead"
@@ -14,7 +14,7 @@
         android:gravity="center"
         android:text="@string/add_income"
         android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/txtAmountReceive"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -22,9 +22,9 @@
 
     <EditText
         android:id="@+id/txtAmountReceive"
-        android:layout_width="175dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="196dp"
+        android:layout_width="249dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="164dp"
         android:background="@drawable/money_background"
         android:ems="10"
         android:gravity="center"
@@ -46,16 +46,16 @@
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toTopOf="@+id/btnSubmitReceive"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAmountReceive"
-        app:layout_constraintVertical_bias="0.248" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.619" />
 
     <Spinner
         android:id="@+id/ReceiveMethode"
         android:layout_width="wrap_content"
         android:layout_height="28dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:entries="@array/receive_methode"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,9 +64,9 @@
 
     <ImageButton
         android:id="@+id/btnSubmitReceive"
-        android:layout_width="369dp"
-        android:layout_height="112dp"
-        android:layout_marginBottom="64dp"
+        android:layout_width="339dp"
+        android:layout_height="102dp"
+        android:layout_marginBottom="60dp"
         android:backgroundTint="@color/transparent"
         android:onClick="onbtnSubmitReceive_Clicked"
         android:scaleType="centerCrop"

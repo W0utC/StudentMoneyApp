@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/background"
+    android:background="@drawable/expence_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="369dp"
-        android:layout_height="112dp"
+        android:layout_width="340dp"
+        android:layout_height="106dp"
         android:layout_marginBottom="64dp"
         android:backgroundTint="@color/transparent"
         android:onClick="onBtnSubmit_Clicked"
@@ -22,20 +22,20 @@
 
     <EditText
         android:id="@+id/txtAmount"
-        android:layout_width="175dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="120dp"
+        android:layout_width="250dp"
+        android:layout_height="124dp"
+        android:layout_marginTop="108dp"
+        android:background="@drawable/money_background"
         android:ems="10"
-        android:hint="money"
+        android:gravity="center"
+        android:hint="amount"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
-        android:background="@drawable/money_background"
-        android:gravity="center"
         android:textColor="@color/white"
         android:textColorHint="@color/whiteTransparent"
         android:textCursorDrawable="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,67 +43,69 @@
         android:id="@+id/paymentMethode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="340dp"
+        android:layout_marginBottom="332dp"
         android:entries="@array/payment_methode"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/category"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
         android:entries="@array/categories"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toTopOf="@+id/paymentMethode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtStore" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.974" />
 
     <EditText
         android:id="@+id/txtStore"
-        android:layout_width="144dp"
+        android:layout_width="250dp"
         android:layout_height="56dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/category_button"
         android:ems="10"
         android:gravity="center"
-        android:hint="winkel"
-        android:textColorHint="@color/white"
-        android:textCursorDrawable="@color/black"
+        android:hint="store"
         android:inputType="textPersonName"
         android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textCursorDrawable="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtAmount" />
 
     <ImageButton
         android:id="@+id/btnReceive"
-        android:layout_width="181dp"
-        android:layout_height="52dp"
+        android:layout_width="268dp"
+        android:layout_height="85dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="#00FFFFFF"
         android:onClick="onBtnReceive_Clicked"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/imageButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/paymentMethode"
         app:srcCompat="@drawable/category_button" />
 
     <TextView
         android:id="@+id/txtHead"
         android:layout_width="162dp"
         android:layout_height="42dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/add_expense"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
-        android:textColor="@color/black"
+        android:layout_marginBottom="40dp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/txtAmount"
+        android:text="@string/add_income"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent" />
 
 
