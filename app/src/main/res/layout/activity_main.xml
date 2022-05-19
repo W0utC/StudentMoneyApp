@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:background="@drawable/background_main_screen"
     tools:context=".activity.MainActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="315dp"
-        android:layout_height="160dp"
-        android:layout_marginBottom="60dp"
+        android:layout_width="260dp"
+        android:layout_height="146dp"
+        android:layout_marginBottom="130dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,48 +56,47 @@
 
     <ImageButton
         android:id="@+id/btnViewData"
-        android:layout_width="364dp"
-        android:layout_height="108dp"
-        android:layout_marginBottom="112dp"
+        android:layout_width="339dp"
+        android:layout_height="98dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/transparent"
         android:onClick="onBtnViewData_Clicked"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.659"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAddNew"
-        app:layout_constraintVertical_bias="0.732"
-        app:srcCompat="@drawable/overview_v2" />
+        app:srcCompat="@drawable/overview_v2"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/btnAddNew"
-        android:layout_width="364dp"
-        android:layout_height="108dp"
-        android:layout_marginTop="112dp"
+        android:layout_width="339dp"
+        android:layout_height="94dp"
+        android:layout_marginTop="96dp"
         android:backgroundTint="@color/transparent"
         android:onClick="onBtnAddNew_Clicked"
         android:scaleType="centerCrop"
         android:tint="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.659"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/new_button_v3" />
+        app:srcCompat="@drawable/new_button_v3"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="152dp"
+        android:layout_marginBottom="168dp"
         android:backgroundTint="@color/transparent"
         android:onClick="onBtnResetData_Clicked"
         android:tint="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintHorizontal_bias="0.812"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/stat_notify_sync" />
+        app:srcCompat="@android:drawable/stat_notify_sync"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/button2"
@@ -110,7 +110,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnViewData"
-        app:layout_constraintVertical_bias="0.301" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
