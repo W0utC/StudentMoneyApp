@@ -10,7 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        //maven { url 'https://jitpack.io' } //toegevoegd voor AnyCharts
+        maven { url 'https://jitpack.io' } //toegevoegd voor AnyCharts
     }
 }
 rootProject.name = "StudentMoneyApp"

@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtMain4;
     private TextView txtMain5;
     //
-    //
     private RequestQueue requestQueue;
     private TextView txtResponse;
     private String requestURL;
