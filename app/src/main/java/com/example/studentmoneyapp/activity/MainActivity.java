@@ -1,8 +1,6 @@
 package com.example.studentmoneyapp.activity;
 
 import android.content.Intent;
-
-
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
 
 import com.android.volley.RequestQueue;
 import com.example.studentmoneyapp.network.AllTransactions;
@@ -22,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtMain3;
     private TextView txtMain4;
     private TextView txtMain5;
-    //
+
     private RequestQueue requestQueue;
     private TextView txtResponse;
     private String requestURL;
@@ -36,11 +33,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtMain1 = (TextView) findViewById(R.id.txtMain1);
-        txtMain2 = (TextView) findViewById(R.id.txtMain2);
-        txtMain3 = (TextView) findViewById(R.id.txtMain3);
-        txtMain4 = (TextView) findViewById(R.id.txtMain4);
-        txtMain5 = (TextView) findViewById(R.id.txtMain5);
+        txtMain1 = findViewById(R.id.txtMain1);
+        txtMain2 = findViewById(R.id.txtMain2);
+        txtMain3 = findViewById(R.id.txtMain3);
+        txtMain4 = findViewById(R.id.txtMain4);
+        txtMain5 = findViewById(R.id.txtMain5);
 
         allTransactions = new AllTransactions(getApplicationContext());
     }
@@ -136,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         else length = sizeSingleTransactionList - 5;
 
         for (int i = length; i < sizeSingleTransactionList; i++) {
-            Log.i("MainActivity", "value of i : " + String.valueOf(i));
+            Log.i("MainActivity", "value of i : " + i);
             String date = "";
             //String type = "";
             String amount = "";

@@ -21,7 +21,12 @@ import com.example.studentmoneyapp.R;
 import com.example.studentmoneyapp.model.SingleTransaction;
 import com.example.studentmoneyapp.utils.TransactionClass;
 
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ViewData extends AppCompatActivity {
@@ -64,7 +69,7 @@ public class ViewData extends AppCompatActivity {
         pie.innerRadius(90); //radius in % of the pie
         pie.labels().fontColor("595959"); //color of labels
         pie.labels().position("inside"); //labels inside the pie
-        pie.insideLabelsOffset("-30%"); // set the offset for the labels
+        pie.insideLabelsOffset("-35%"); // set the offset for the labels
 
         pie.background().fill("Snow"); //set background to a colour
 
@@ -128,8 +133,120 @@ public class ViewData extends AppCompatActivity {
         return transactions;
     }
 
-    public void test() {
-        Log.i("ViewData", "------------------------");
+    public double getSumOfCurrentMonthTransactions(){ //sum of all expenses and income from the current month
+        return transactions
+                .stream()
+                .filter(singleTransaction -> singleTransaction.getDate().getMonthValue() == (getCurrentMonthValue()))
+                .mapToDouble(SingleTransaction::getAmount)
+                .sum();
+    }
+
+    public double getSumOfCurrentWeekTransactions(){ //sum of all expenses and income from the current week
+        return transactions
+                .stream()
+                .filter(singleTransaction -> singleTransaction.getDate().getMonthValue() == (getCurrentMonthValue()))
+                .filter(singleTransaction -> singleTransaction.getDate().getDayOfMonth() >= getCurrentDayOfMonthMin())
+                .filter(singleTransaction -> singleTransaction.getDate().getDayOfMonth() <= getCurrentDayOfMonthMax())
+                .mapToDouble(SingleTransaction::getAmount)
+                .sum();
+    }
+
+    public double getSumOfCurrentYearTransactions(){ //sum of all expenses and income from the current year
+        return transactions
+                .stream()
+                .filter(singleTransaction -> singleTransaction.getDate().getYear() == getCurrentYear())
+                .mapToDouble(SingleTransaction::getAmount)
+                .sum();
+    }
+
+    public double getSumOfSpecificMonthTransactions(int month){ // int 1-12  //sum of all expenses and income from a specific month
+        if(month > 0 && month < 13){
+            Log.e(getLocalClassName(),getClass().getCanonicalName() + ": Input out of bounds! max range: 1-52");
+            return -1;
+        }
+        return transactions
+                .stream()
+                .filter(singleTransaction -> singleTransaction.getDate().getMonthValue() == month)
+                .mapToDouble(SingleTransaction::getAmount)
+                .sum();
+    }
+
+    public double getSumOfSpecificWeekTransactions(int week){ //sum of all expenses and income from a specific week
+        if(week > 1 && week < 53){
+            Log.e(getLocalClassName(),getClass().getCanonicalName() + ": Input out of bounds! max range: 1-52");
+            return -1;
+        }
+        return transactions
+                .stream()
+                .filter(singleTransaction -> singleTransaction.getDate().getDayOfYear() >= getFirstDayOfSpecificWeek(week))
+                .filter(singleTransaction -> singleTransaction.getDate().getDayOfYear() <= getSpecificDayOfYearMax(week))
+                .mapToDouble(SingleTransaction::getAmount)
+                .sum();
+    }
+
+    public double getSumOfLastYearTransactions(){ //sum of all expenses and income from the past year
+        return transactions
+                .stream()
+                .filter(singleTransaction -> singleTransaction.getDate().getYear() == getLastYear())
+                .mapToDouble(SingleTransaction::getAmount)
+                .sum();
+    }
+
+    public double getSumOfAlTimeTransactions(){ //sum of all expenses and income from all time
+        return transactions
+                .stream()
+                .mapToDouble(SingleTransaction::getAmount)
+                .sum();
+    }
+
+
+    private int getCurrentYear() { //get the current year as int
+        return LocalDateTime.now().getYear();
+    }
+
+    private int getLastYear() { //get the current year as int
+        return LocalDateTime.now().getYear()-1;
+    }
+
+    public int getCurrentMonthValue(){ //get the current month as an int from 1-12
+        return LocalDateTime.now().getMonthValue();
+    }
+
+    public int getCurrentDayOfMonthMin(){ //get first day of week in relation with the month as int from 1-31
+        int dayOfMonth = LocalDateTime.now().getDayOfMonth();
+        int difference = dayOfMonth % 7;
+        int min = (dayOfMonth - difference) - 1;
+        return min;
+    }
+
+    public int getCurrentDayOfMonthMax(){ //get last day of week in relation with the month as int
+        int dayOfMonth = LocalDateTime.now().getDayOfMonth();
+        int difference = dayOfMonth % 7;
+        int max = dayOfMonth + (7 - difference);
+        return max;
+    }
+
+    public int getFirstDayOfSpecificWeek(int week){ //int 1-52
+        if(week > 1 && week < 53){
+            Log.e(getLocalClassName(),getClass().getCanonicalName() + ": Input out of bounds! max range: 1-52");
+            return -1;
+        }
+        return (week * 7) - 6;
+    }
+
+    public int getSpecificDayOfYearMax(int week){ //get last day of specific week of year int 7, 14, 21...
+        if(week > 0 && week < 53){
+            Log.e(getLocalClassName(),getClass().getCanonicalName() + ": Input out of bounds! max range: 1-52");
+            return -1;
+        }
+        int dayOfYear = getFirstDayOfSpecificWeek(week);
+        int difference = 6;
+        int max = dayOfYear + difference;
+        return max;
+    }
+
+    //public void test() {
+        /*Log.i("ViewData", "------------------------");
 
         //Log.i("ViewData", "first element in TransactionClass: " + TransactionClass.getInstance().getList().get(0).toString());
         Log.i("ViewData", "first element in TransactionClass: " + transactions.toString());
@@ -147,6 +264,5 @@ public class ViewData extends AppCompatActivity {
         }
 
         Log.i("ViewData", "------------------------");
-    }
-
+    }*/
 }
