@@ -1,17 +1,34 @@
 package com.example.studentmoneyapp.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.example.studentmoneyapp.network.AllTransactions;
 import com.example.studentmoneyapp.R;
+import com.example.studentmoneyapp.utils.AllSettingsClass;
+import com.example.studentmoneyapp.utils.Setting;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private TextView txtMain1;
@@ -19,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtMain3;
     private TextView txtMain4;
     private TextView txtMain5;
+    private EditText maxWeeklyExpense;
 
     private RequestQueue requestQueue;
     private TextView txtResponse;
@@ -27,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String GET_URL = "https://studev.groept.be/api/a21pt114/getTransactions";
 
     private AllTransactions allTransactions;
+
+    private static final String SHARED_PREFERENCES_FOLDER_NAME = "settings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +58,12 @@ public class MainActivity extends AppCompatActivity {
         txtMain3 = findViewById(R.id.txtMain3);
         txtMain4 = findViewById(R.id.txtMain4);
         txtMain5 = findViewById(R.id.txtMain5);
+        maxWeeklyExpense = (EditText) findViewById(R.id.eTxtWeeklyExpense);
+
 
         allTransactions = new AllTransactions(getApplicationContext());
+
+        setAllSettingsClass();
     }
 
     @Override
@@ -48,18 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
         allTransactions.resetTransactions();
         updatePreviewList();
-
-        //runAsyncUpdatePreviewList();
-
-        /*final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //runAsyncUpdatePreviewList();
-                //updatePreviewList();
-                //Do something after 100ms
-            }
-        }, 500);*/
     }
 
     public void onBtnAddNew_Clicked(View caller) {
@@ -76,19 +88,13 @@ public class MainActivity extends AppCompatActivity {
         updatePreviewList();
     }
 
-    public void runAsyncUpdatePreviewList() {
-        new Thread(() -> {
-            allTransactions = new AllTransactions(getApplicationContext());
-            // do background stuff here
-            runOnUiThread(() -> {
-                updatePreviewList();
-                // OnPostExecute stuff here
-            });
-        }).start();
+   public void onBtnTest_Clicked(View caller) {
+        Intent intent = new Intent(this, ScrollableTest.class);
+        startActivity(intent);
     }
 
-    public void onBtnTest_Clicked(View caller) {
-        Intent intent = new Intent(this, ScrollableTest.class);
+    public void onBtnSettingsMain_Clicked(View caller) {
+        Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
 
@@ -167,6 +173,59 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void setAllSettingsClass(){
+        ArrayList<Setting> allSettings = new ArrayList<>();
+
+        //add setting max weekly expense to the AllSettingsClass
+        Setting setMaxWeeklyExpense = getFromSharedPref("maxWeeklyExpense");
+        allSettings.add(setMaxWeeklyExpense);
+
+        AllSettingsClass.getInstance().setList(allSettings);
+    }
+
+    public Setting getFromSharedPref(String nameOfSetting){
+        int defaultValue = -9999;
+
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_FOLDER_NAME, Context.MODE_PRIVATE);
+        int intVal = sharedPref.getInt(nameOfSetting, defaultValue);
+
+        Setting setting = new Setting(nameOfSetting, intVal);
+        return setting;
+    }
+
+    private Activity getActivity() {
+        return MainActivity.this;
+    }
+
+    //public void settingsInflater(View caller){
+       /* // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.settings_page, null);
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        popupSettings = new PopupWindow(popupView, width, height, focusable);
+        popupSettings.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        popupSettings.setElevation(10);
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupSettings.showAtLocation(caller, Gravity.CENTER, 0, 0);
+
+        // dismiss the popup window when touched
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                popupSettings.dismiss();
+                return true;
+            }
+        });
+    }*/
+
 
 
     //public void updatePreviewList() { // TODO aanpassen zodat van transactions (arrayList) de data haalt en niet nog is van dataBase
