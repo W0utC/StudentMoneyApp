@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 500);*/
     }
-
+    //
     public void onBtnAddNew_Clicked(View caller) {
         Intent intent = new Intent(this, Transaction.class);
         startActivity(intent);
