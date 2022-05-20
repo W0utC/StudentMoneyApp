@@ -12,5 +12,6 @@
     <color name="whiteTransparent">#DDFFFFFF</color>
     <color name="darkBlue">#3F51B5</color>
     <color name="snow">#FFFAFA</color>
+    <color name="opaqueBlue">#B8CAFF</color>
 
 </resources>

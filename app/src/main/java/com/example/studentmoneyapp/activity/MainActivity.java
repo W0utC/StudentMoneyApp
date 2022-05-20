@@ -48,20 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
         allTransactions.resetTransactions();
         updatePreviewList();
-
-        //runAsyncUpdatePreviewList();
-
-        /*final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //runAsyncUpdatePreviewList();
-                //updatePreviewList();
-                //Do something after 100ms
-            }
-        }, 500);*/
     }
-    //
+
     public void onBtnAddNew_Clicked(View caller) {
         Intent intent = new Intent(this, Transaction.class);
         startActivity(intent);
@@ -76,19 +64,13 @@ public class MainActivity extends AppCompatActivity {
         updatePreviewList();
     }
 
-    public void runAsyncUpdatePreviewList() {
-        new Thread(() -> {
-            allTransactions = new AllTransactions(getApplicationContext());
-            // do background stuff here
-            runOnUiThread(() -> {
-                updatePreviewList();
-                // OnPostExecute stuff here
-            });
-        }).start();
-    }
-
     public void onBtnTest_Clicked(View caller) {
         Intent intent = new Intent(this, ScrollableTest.class);
+        startActivity(intent);
+    }
+
+    public void onBtnSettingsMain_Clicked(View caller) {
+        Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
 

@@ -31,11 +31,13 @@ public class Settings extends AppCompatActivity {
     }
 
     public void onBtnSaveChanges_Clicked(View caller) {
-        saveSettings();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
-        Toast("settings saved");
+        if(checkReadySave()) {
+            saveSettings();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            Toast("settings saved");
+        }
     }
 
     public void Toast(String message){
@@ -43,6 +45,17 @@ public class Settings extends AppCompatActivity {
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(Settings.this, text, duration);
         toast.show();
+    }
+
+    private boolean checkReadySave() {
+        if (isEmpty(maxWeeklyExpense)) {
+            maxWeeklyExpense.setError("fill in!");
+        }
+        return !isEmpty(maxWeeklyExpense);
+    }
+
+    private boolean isEmpty(EditText etText) {
+        return etText.getText().toString().trim().length() <= 0;
     }
 
     public void saveSettings(){

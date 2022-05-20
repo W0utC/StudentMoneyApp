@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/expence_background"
+    android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -41,10 +41,13 @@
 
     <Spinner
         android:id="@+id/paymentMethode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="332dp"
+        android:layout_width="215dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="288dp"
+        android:background="@drawable/category_button"
+        android:dropDownSelector="@color/opaqueBlue"
         android:entries="@array/payment_methode"
+        android:paddingHorizontal="10dp"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,16 +55,20 @@
 
     <Spinner
         android:id="@+id/category"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_width="215dp"
+        android:layout_height="52dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/category_button"
+        android:dropDownSelector="@android:drawable/ic_menu_sort_by_size"
         android:entries="@array/categories"
+        android:paddingHorizontal="10dp"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toTopOf="@+id/paymentMethode"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.974" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/txtStore"
