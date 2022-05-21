@@ -17,24 +17,12 @@ public class TransactionRecView {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
     public float getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
-        this.amount = amount;
-    }
-
     public String getStore() {
         return Store;
-    }
-
-    public void setStore(String store) {
-        Store = store;
     }
 
     @Override

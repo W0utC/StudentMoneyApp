@@ -30,6 +30,7 @@ public class TransactionsRecViewAdapter extends RecyclerView.Adapter<Transaction
     public TransactionsRecViewAdapter(Context context){
         this.context = context;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -53,13 +54,10 @@ public class TransactionsRecViewAdapter extends RecyclerView.Adapter<Transaction
         holder.txtDate.setText(date);
         holder.txtAmount.setText(tempAmount);
         holder.txtStore.setText(store);
-        //holder.transactionListItemParent.setElevation(0);
-        holder.transactionListItemParent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, transactions.get(holder.getAdapterPosition()).toString(), Toast.LENGTH_LONG).show();
-            }
-        });
+        holder.transactionListItemParent.setOnClickListener(view ->
+                Toast.makeText(context,
+                        transactions.get(holder.getAdapterPosition()).toString(),
+                        Toast.LENGTH_LONG).show());
     }
 
     public void setColor(ViewHolder holder, int pos){

@@ -2,6 +2,7 @@ package com.example.studentmoneyapp.activity;
 
 import static java.lang.Math.abs;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -70,6 +71,11 @@ public class ViewData extends AppCompatActivity {
         transactionAdapter.setTransactions(transactionsRecViewList);
         transactionsRecView.setAdapter(transactionAdapter);
         transactionsRecView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    public void onBtnChartPage_Clicked(View caller) {
+        Intent intent = new Intent(this, ChartsData.class);
+        startActivity(intent);
     }
 
     public void setupPieChart(){ //hadden achteraf mss beter google chart gebruikt of fusion charts

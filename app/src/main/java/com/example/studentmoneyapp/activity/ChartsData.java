@@ -6,5 +6,19 @@ package com.example.studentmoneyapp.activity;
 *
 * */
 
-public class ChartsData {
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.studentmoneyapp.R;
+
+public class ChartsData extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.charts_data_page);
+
+    }
+
+
 }
