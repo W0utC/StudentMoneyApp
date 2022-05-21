@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/expence_background">
+    android:background="@drawable/background">
 
     <TextView
         android:id="@+id/txtHead"
@@ -34,33 +34,38 @@
         android:textColor="@color/white"
         android:textColorHint="@color/whiteTransparent"
         android:textCursorDrawable="@color/black"
+        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/categoryReceive"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_width="215dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/category_button"
         android:entries="@array/categoriesReceive"
+        android:paddingHorizontal="10dp"
         android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@+id/btnSubmitReceive"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.619" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAmountReceive" />
 
     <Spinner
         android:id="@+id/ReceiveMethode"
-        android:layout_width="wrap_content"
-        android:layout_height="28dp"
+        android:layout_width="215dp"
+        android:layout_height="52dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/category_button"
         android:entries="@array/receive_methode"
+        android:paddingHorizontal="10dp"
         android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/btnSubmitReceive"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryReceive" />
+        app:layout_constraintTop_toBottomOf="@+id/categoryReceive"
+        app:layout_constraintVertical_bias="0.07" />
 
     <ImageButton
         android:id="@+id/btnSubmitReceive"

@@ -13,5 +13,7 @@
     <color name="darkBlue">#3F51B5</color>
     <color name="snow">#FFFAFA</color>
     <color name="opaqueBlue">#B8CAFF</color>
+    <color name="expenseRed">#9EF0919C</color>
+    <color name="expenseGreen">#9ED87A</color>
 
 </resources>

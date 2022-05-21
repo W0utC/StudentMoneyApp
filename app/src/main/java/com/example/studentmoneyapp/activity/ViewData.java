@@ -5,9 +5,13 @@ import static java.lang.Math.abs;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anychart.AnyChart;
@@ -19,14 +23,18 @@ import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
 import com.example.studentmoneyapp.R;
 import com.example.studentmoneyapp.model.SingleTransaction;
+import com.example.studentmoneyapp.model.TransactionsRecViewAdapter;
 import com.example.studentmoneyapp.utils.TransactionClass;
+import com.example.studentmoneyapp.utils.TransactionRecView;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ViewData extends AppCompatActivity {
@@ -34,11 +42,15 @@ public class ViewData extends AppCompatActivity {
     ArrayList<SingleTransaction> transactions;
     AnyChartView anyChartView;
 
+    private RecyclerView transactionsRecView;
+    private RelativeLayout relativeLayout;
+
+    ArrayList<TransactionRecView> transactionsRecViewList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_data);
-
 
         transactions = new ArrayList<>(TransactionClass.getInstance().getList()); //declare array list and put in the transactions
 
@@ -49,6 +61,15 @@ public class ViewData extends AppCompatActivity {
         setupPieChart();
 
         setTxtHistory();
+        txtHistory.setVisibility(View.INVISIBLE);
+
+        transactionsRecView = findViewById(R.id.transactionRecViewAll);
+        transactionsRecViewList = new ArrayList<>();
+        populateTransactionRecView();
+        TransactionsRecViewAdapter transactionAdapter = new TransactionsRecViewAdapter(this);
+        transactionAdapter.setTransactions(transactionsRecViewList);
+        transactionsRecView.setAdapter(transactionAdapter);
+        transactionsRecView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void setupPieChart(){ //hadden achteraf mss beter google chart gebruikt of fusion charts
@@ -127,6 +148,14 @@ public class ViewData extends AppCompatActivity {
 
         tempStr = date + ": " + euro + amount + " " + store;
         return tempStr;
+    }
+
+    public void populateTransactionRecView(){
+        for(SingleTransaction singleTransaction : getTransactions()){
+            transactionsRecViewList.add(new TransactionRecView(singleTransaction.getDate(),
+                    singleTransaction.getAmount(),
+                    singleTransaction.getStore()));
+        }
     }
 
     public ArrayList<SingleTransaction> getTransactions() {

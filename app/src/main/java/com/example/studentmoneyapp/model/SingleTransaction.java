@@ -57,4 +57,15 @@ public class SingleTransaction {
     public void setStore(String store) {
         this.store = store;
     }
+
+    @Override
+    public String toString() {
+        return "SingleTransaction{" +
+                "date=" + date +
+                ", type='" + type + '\'' +
+                ", amount=" + amount +
+                ", methode='" + methode + '\'' +
+                ", store='" + store + '\'' +
+                '}';
+    }
 }

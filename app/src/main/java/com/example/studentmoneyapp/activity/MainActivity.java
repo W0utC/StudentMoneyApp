@@ -74,31 +74,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*public void runAsyncUpdatePreviewList(){
-        Log.i("MainActivity", "runAsyncUpdatePreviewList started");
-
-        new TaskRunner(MainActivity.this) {
-            @Override
-            public void doInBackground() {
-                Log.i("MainActivity", "runAsyncUpdatePreviewList started in background");
-                allTransactions = new AllTransactions(getApplicationContext());
-                //put you background code
-                //same like doingBackground
-                //Background Thread
-            }
-
-            @Override
-            public void onPostExecute() {
-                Log.i("MainActivity", "runAsyncUpdatePreviewList started on post execute");
-                Log.i("MainActivity", "runAsyncUpdatePreviewList on execute size: " + allTransactions.getSingleTransactionList().size());
-                updatePreviewList();
-                //hear is result part same
-                //same like post execute
-                //UI Thread(update your UI widget)
-            }
-        }.execute();
-    }*/
-
     public void updatePreviewList() {
         int length;
         //List<SingleTransaction> transactions = new ArrayList<>(allTransactions);

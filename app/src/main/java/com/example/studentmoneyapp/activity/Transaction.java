@@ -114,15 +114,6 @@ public class Transaction extends AppCompatActivity {
     }
 
     public String getCurrentDateAndTime() {
-        /*String time = LocalTime.now().toString();
-        time = time.substring(0, time.length()-4);
-        String date = getCurrentDate();
-        String spaceForURL = "+";
-
-        String tempString = date + spaceForURL + time;
-        Log.i("Data", "The date and time at which this is executed is 1: " + tempString);
-        return tempString;*/
-
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd+HH:mm:ss");
         String dateTime = LocalDateTime.now().format(format);
         //Log.i("Data", "The date and time at which this is executed is 2: " + dateTime);
