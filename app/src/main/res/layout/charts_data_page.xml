@@ -9,9 +9,24 @@
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="1dp">
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <com.anychart.AnyChartView
+            android:id="@+id/chart_view_test"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="100dp"
+            android:background="@color/transparent"
+            android:backgroundTint="@color/transparent"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="invisible" />
 
         <TextView
             android:id="@+id/txtChartsTitle"
@@ -47,10 +62,11 @@
                     android:id="@+id/chartLinearGaugeCurrEx"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
+                    android:layout_marginHorizontal="12dp"
                     android:layout_marginTop="50dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@color/transparent"
                     android:backgroundTint="@color/transparent"
-                    android:layout_marginHorizontal="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -126,6 +142,7 @@
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:layout_marginHorizontal="12dp"
+                        android:layout_marginBottom="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -138,6 +155,7 @@
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:layout_marginHorizontal="12dp"
+                        android:layout_marginBottom="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -168,6 +186,7 @@
                     android:background="@color/transparent"
                     android:backgroundTint="@color/transparent"
                     android:layout_marginHorizontal="12dp"
+                    android:layout_marginBottom="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -243,6 +262,7 @@
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:layout_marginHorizontal="12dp"
+                        android:layout_marginBottom="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -255,6 +275,7 @@
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:layout_marginHorizontal="12dp"
+                        android:layout_marginBottom="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -331,6 +352,7 @@
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:layout_marginHorizontal="12dp"
+                        android:layout_marginBottom="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -343,6 +365,7 @@
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:layout_marginHorizontal="12dp"
+                        android:layout_marginBottom="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

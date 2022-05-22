@@ -2,12 +2,9 @@ package com.example.studentmoneyapp.activity;
 
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
-import android.widget.Toast;
-
+import com.anychart.APIlib;
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
@@ -20,14 +17,15 @@ import com.example.studentmoneyapp.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScrollableTest extends AppCompatActivity {
+public class TestTestBeu extends AppCompatActivity {
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.scrollable_test);
+        setContentView(R.layout.charts_data_page);
 
         AnyChartView anyChartView = findViewById(R.id.chart_scrollable_test);
-        //anyChartView.setProgressBar(findViewById(R.id.progress_bar));
+        APIlib.getInstance().setActiveAnyChartView(anyChartView);
 
         Pie pie = AnyChart.pie();
 
@@ -55,14 +53,5 @@ public class ScrollableTest extends AppCompatActivity {
                 .align(Align.CENTER);
 
         anyChartView.setChart(pie);
-    }
-
-    public void onBtnClickMe_Clicked(View caller) {
-        finish();
-
-        String text = "Test page closed";
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(ScrollableTest.this, text, duration);
-        toast.show();
     }
 }

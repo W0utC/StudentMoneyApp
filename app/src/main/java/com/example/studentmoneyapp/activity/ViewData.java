@@ -18,10 +18,13 @@ import android.widget.TextView;
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.SingleValueDataSet;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.LinearGauge;
 import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
+import com.anychart.scales.Linear;
 import com.example.studentmoneyapp.R;
 import com.example.studentmoneyapp.model.SingleTransaction;
 import com.example.studentmoneyapp.model.TransactionsRecViewAdapter;
@@ -59,7 +62,7 @@ public class ViewData extends AppCompatActivity {
         txtHistory.setMovementMethod(new ScrollingMovementMethod());
 
         anyChartView = (AnyChartView) findViewById(R.id.any_chart_view);
-        setupPieChart();
+        //setupPieChart();
 
         setTxtHistory();
         txtHistory.setVisibility(View.INVISIBLE);
@@ -71,6 +74,8 @@ public class ViewData extends AppCompatActivity {
         transactionAdapter.setTransactions(transactionsRecViewList);
         transactionsRecView.setAdapter(transactionAdapter);
         transactionsRecView.setLayoutManager(new LinearLayoutManager(this));
+
+        setupChartLinearGaugeCurrentEx();
     }
 
     public void onBtnChartPage_Clicked(View caller) {
@@ -109,6 +114,20 @@ public class ViewData extends AppCompatActivity {
                 .align(Align.CENTER);
 
         anyChartView.setChart(pie); //build and show the pie
+    }
+
+    public void setupChartLinearGaugeCurrentEx(){ //TODO just to test
+        //AnyChartView chartGauge = findViewById(R.id.chartLinearGaugeCurrEx);
+        LinearGauge linearGauge = AnyChart.linear();
+
+        linearGauge.data(new SingleValueDataSet(new Integer[] { 2 }));
+
+        Linear linear = Linear.instantiate();
+        linear.minimum(-20)
+                .maximum(100);
+        linearGauge.axis(1).scale(linear);
+
+        anyChartView.setChart(linearGauge);
     }
 
     public float[] getChartSumData(ArrayList<SingleTransaction> transactions){ // TODO better to work with ExpenseSumPair
