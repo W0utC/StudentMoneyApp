@@ -1,6 +1,7 @@
 package com.example.studentmoneyapp.activity;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.round;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,21 +16,28 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.anychart.APIlib;
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.SingleValueDataSet;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.CircularGauge;
 import com.anychart.charts.LinearGauge;
 import com.anychart.charts.Pie;
+import com.anychart.core.lineargauge.pointers.Marker;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
+import com.anychart.enums.Orientation;
+import com.anychart.graphics.vector.GradientKey;
 import com.anychart.scales.Linear;
 import com.example.studentmoneyapp.R;
 import com.example.studentmoneyapp.model.SingleTransaction;
 import com.example.studentmoneyapp.model.TransactionsRecViewAdapter;
+import com.example.studentmoneyapp.utils.ChartsDataHandler;
 import com.example.studentmoneyapp.utils.TransactionClass;
 import com.example.studentmoneyapp.utils.TransactionRecView;
+import com.google.common.collect.Lists;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -48,6 +56,7 @@ public class ViewData extends AppCompatActivity {
 
     private RecyclerView transactionsRecView;
     private RelativeLayout relativeLayout;
+    ChartsDataHandler chartsDataHandler;
 
     ArrayList<TransactionRecView> transactionsRecViewList;
 
@@ -56,6 +65,8 @@ public class ViewData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_data);
 
+        chartsDataHandler = new ChartsDataHandler(this);
+
         transactions = new ArrayList<>(TransactionClass.getInstance().getList()); //declare array list and put in the transactions
 
         txtHistory = (TextView) findViewById(R.id.txtHistory);
@@ -63,6 +74,7 @@ public class ViewData extends AppCompatActivity {
 
         anyChartView = (AnyChartView) findViewById(R.id.any_chart_view);
         //setupPieChart();
+        setupCircularGauge();
 
         setTxtHistory();
         txtHistory.setVisibility(View.INVISIBLE);
@@ -75,7 +87,6 @@ public class ViewData extends AppCompatActivity {
         transactionsRecView.setAdapter(transactionAdapter);
         transactionsRecView.setLayoutManager(new LinearLayoutManager(this));
 
-        setupChartLinearGaugeCurrentEx();
     }
 
     public void onBtnChartPage_Clicked(View caller) {
@@ -116,18 +127,124 @@ public class ViewData extends AppCompatActivity {
         anyChartView.setChart(pie); //build and show the pie
     }
 
-    public void setupChartLinearGaugeCurrentEx(){ //TODO just to test
-        //AnyChartView chartGauge = findViewById(R.id.chartLinearGaugeCurrEx);
-        LinearGauge linearGauge = AnyChart.linear();
+    public void setupCircularGauge(){
+        AnyChartView chatCircularGauge = findViewById(R.id.any_chart_view);
+        APIlib.getInstance().setActiveAnyChartView(chatCircularGauge); //REALLY important for good functioning!!!
 
-        linearGauge.data(new SingleValueDataSet(new Integer[] { 2 }));
+        CircularGauge circularGauge = AnyChart.circular();
+        circularGauge.animation(true);
 
-        Linear linear = Linear.instantiate();
-        linear.minimum(-20)
-                .maximum(100);
-        linearGauge.axis(1).scale(linear);
+        circularGauge
+                .fill("White")
+                .stroke(null)
+                .padding("0dp")
+                .margin("10dp")
+                .startAngle(270)
+                .sweepAngle(180);
 
-        anyChartView.setChart(linearGauge);
+
+        circularGauge.axis(0)
+                .enabled(true)
+                .labels()
+                .fontSize(14)
+                .position("outside")
+                .format("{%Value}");
+
+        circularGauge
+                .axis(0)
+                .enabled(true)
+                .scale()
+                .minimum(0)
+                .maximum(150)
+                .ticks("{ interval: 10 }")
+                .minorTicks("{ interval: 5 }");
+
+        circularGauge.axis(0)
+                .fill("#545f69")
+                .width(1)
+                .ticks("{ type: 'line', fill: 'white', length: 2 }");
+
+        circularGauge.title("this weeks spending"); //can't put ' in the text anychart won't work then
+
+        circularGauge
+                .title()
+                .useHtml(true)
+                .padding(0)
+                .fontColor("#212121")
+                .hAlign("center")
+                .margin(0, 0, 10, 0);
+
+        circularGauge
+                .needle(0)
+                .stroke("2 #545f69")
+                .enabled(true)
+                .startRadius("5%")
+                .endRadius("90%")
+                .startWidth("0.1%")
+                .endWidth("0.1%")
+                .middleWidth("0.1%");
+
+        circularGauge.cap().radius("3%").enabled(true).fill("#545f69");
+
+        circularGauge.range(0)
+                .from(0)
+                .to(50)
+                .position("inside")
+                .fill("#dd2c00 0.4")
+                .startSize(50)
+                .endSize(50)
+                .radius(98);
+
+        circularGauge.range(1)
+                .from(50)
+                .to(100)
+                .position("inside")
+                .fill("#ffa000 0.4")
+                .startSize(50)
+                .endSize(50)
+                .radius(98);
+
+        circularGauge.range(2)
+                .from(100)
+                .to(150)
+                .position("inside")
+                .fill("#009900 0.4")
+                .startSize(50)
+                .endSize(50)
+                .radius(98);
+
+        circularGauge
+                .label(1)
+                .text("good")
+                .fontColor("#212121")
+                .fontSize(14)
+                .offsetY("68%")
+                .offsetX(25)
+                .anchor("center");
+
+        circularGauge
+                .label(2)
+                .text("be careful")
+                .fontColor("#212121")
+                .fontSize(14)
+                .offsetY("68%")
+                .offsetX(90)
+                .anchor("center");
+
+        circularGauge
+                .label(3)
+                .text("stop spending!")
+                .fontColor("#212121")
+                .fontSize(14)
+                .offsetY("68%")
+                .offsetX(155)
+                .anchor("center");
+
+        List<DataEntry> dataEntry = new ArrayList<>();
+        dataEntry.add(new ValueDataEntry("week", abs(round(chartsDataHandler.getSumOfCurrentWeekTransactions()))));
+        circularGauge.data(dataEntry);
+
+        chatCircularGauge.setChart(circularGauge);
     }
 
     public float[] getChartSumData(ArrayList<SingleTransaction> transactions){ // TODO better to work with ExpenseSumPair
@@ -176,7 +293,8 @@ public class ViewData extends AppCompatActivity {
     }
 
     public void populateTransactionRecView(){
-        for(SingleTransaction singleTransaction : getTransactions()){
+
+        for(SingleTransaction singleTransaction : Lists.reverse(getTransactions())){
             transactionsRecViewList.add(new TransactionRecView(singleTransaction.getDate(),
                     singleTransaction.getAmount(),
                     singleTransaction.getStore()));
@@ -187,117 +305,7 @@ public class ViewData extends AppCompatActivity {
         return transactions;
     }
 
-    public double getSumOfCurrentMonthTransactions(){ //sum of all expenses and income from the current month
-        return transactions
-                .stream()
-                .filter(singleTransaction -> singleTransaction.getDate().getMonthValue() == (getCurrentMonthValue()))
-                .mapToDouble(SingleTransaction::getAmount)
-                .sum();
-    }
 
-    public double getSumOfCurrentWeekTransactions(){ //sum of all expenses and income from the current week
-        return transactions
-                .stream()
-                .filter(singleTransaction -> singleTransaction.getDate().getMonthValue() == (getCurrentMonthValue()))
-                .filter(singleTransaction -> singleTransaction.getDate().getDayOfMonth() >= getCurrentDayOfMonthMin())
-                .filter(singleTransaction -> singleTransaction.getDate().getDayOfMonth() <= getCurrentDayOfMonthMax())
-                .mapToDouble(SingleTransaction::getAmount)
-                .sum();
-    }
-
-    public double getSumOfCurrentYearTransactions(){ //sum of all expenses and income from the current year
-        return transactions
-                .stream()
-                .filter(singleTransaction -> singleTransaction.getDate().getYear() == getCurrentYear())
-                .mapToDouble(SingleTransaction::getAmount)
-                .sum();
-    }
-
-    public double getSumOfSpecificMonthTransactions(int month){ // int 1-12  //sum of all expenses and income from a specific month
-        if(month > 0 && month < 13){
-            Log.e(getLocalClassName(),getClass().getCanonicalName() + ": Input out of bounds! max range: 1-52");
-            return -1;
-        }
-        return transactions
-                .stream()
-                .filter(singleTransaction -> singleTransaction.getDate().getMonthValue() == month)
-                .mapToDouble(SingleTransaction::getAmount)
-                .sum();
-    }
-
-    public double getSumOfSpecificWeekTransactions(int week){ //sum of all expenses and income from a specific week
-        if(week > 1 && week < 53){
-            Log.e(getLocalClassName(),getClass().getCanonicalName() + ": Input out of bounds! max range: 1-52");
-            return -1;
-        }
-        return transactions
-                .stream()
-                .filter(singleTransaction -> singleTransaction.getDate().getDayOfYear() >= getFirstDayOfSpecificWeek(week))
-                .filter(singleTransaction -> singleTransaction.getDate().getDayOfYear() <= getSpecificDayOfYearMax(week))
-                .mapToDouble(SingleTransaction::getAmount)
-                .sum();
-    }
-
-    public double getSumOfLastYearTransactions(){ //sum of all expenses and income from the past year
-        return transactions
-                .stream()
-                .filter(singleTransaction -> singleTransaction.getDate().getYear() == getLastYear())
-                .mapToDouble(SingleTransaction::getAmount)
-                .sum();
-    }
-
-    public double getSumOfAlTimeTransactions(){ //sum of all expenses and income from all time
-        return transactions
-                .stream()
-                .mapToDouble(SingleTransaction::getAmount)
-                .sum();
-    }
-
-
-    private int getCurrentYear() { //get the current year as int
-        return LocalDateTime.now().getYear();
-    }
-
-    private int getLastYear() { //get the current year as int
-        return LocalDateTime.now().getYear()-1;
-    }
-
-    public int getCurrentMonthValue(){ //get the current month as an int from 1-12
-        return LocalDateTime.now().getMonthValue();
-    }
-
-    public int getCurrentDayOfMonthMin(){ //get first day of week in relation with the month as int from 1-31
-        int dayOfMonth = LocalDateTime.now().getDayOfMonth();
-        int difference = dayOfMonth % 7;
-        int min = (dayOfMonth - difference) - 1;
-        return min;
-    }
-
-    public int getCurrentDayOfMonthMax(){ //get last day of week in relation with the month as int
-        int dayOfMonth = LocalDateTime.now().getDayOfMonth();
-        int difference = dayOfMonth % 7;
-        int max = dayOfMonth + (7 - difference);
-        return max;
-    }
-
-    public int getFirstDayOfSpecificWeek(int week){ //int 1-52
-        if(week > 1 && week < 53){
-            Log.e(getLocalClassName(),getClass().getCanonicalName() + ": Input out of bounds! max range: 1-52");
-            return -1;
-        }
-        return (week * 7) - 6;
-    }
-
-    public int getSpecificDayOfYearMax(int week){ //get last day of specific week of year int 7, 14, 21...
-        if(week > 0 && week < 53){
-            Log.e(getLocalClassName(),getClass().getCanonicalName() + ": Input out of bounds! max range: 1-52");
-            return -1;
-        }
-        int dayOfYear = getFirstDayOfSpecificWeek(week);
-        int difference = 6;
-        int max = dayOfYear + difference;
-        return max;
-    }
 
     //public void test() {
         /*Log.i("ViewData", "------------------------");

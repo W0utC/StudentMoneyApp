@@ -17,6 +17,7 @@
 
     <string-array name="categories">
         <item>food</item>
+        <item>horeca</item>
         <item>goingOut</item>
         <item>sport</item>
         <item>tech</item>

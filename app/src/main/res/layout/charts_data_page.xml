@@ -9,24 +9,9 @@
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="1dp">
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <com.anychart.AnyChartView
-            android:id="@+id/chart_view_test"
-            android:layout_width="0dp"
-            android:layout_height="300dp"
-            android:layout_marginTop="100dp"
-            android:background="@color/transparent"
-            android:backgroundTint="@color/transparent"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="invisible" />
 
         <TextView
             android:id="@+id/txtChartsTitle"
@@ -51,25 +36,61 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="300dp"
                 android:elevation="0dp"
                 android:padding="10dp"
                 app:cardBackgroundColor="@color/transparent"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="5dp">
 
-                <com.anychart.AnyChartView
-                    android:id="@+id/chartLinearGaugeCurrEx"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_marginHorizontal="12dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/transparent"
-                    android:backgroundTint="@color/transparent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="204dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="1dp"
+                        android:paddingVertical="7dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.anychart.AnyChartView
+                            android:id="@+id/chartLinearGaugeCurrExMonth"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="start"
+                            android:layout_marginHorizontal="12dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@color/transparent"
+                            android:backgroundTint="@color/transparent"
+                            tools:layout_editor_absoluteX="12dp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="204dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="1dp"
+                        android:paddingVertical="7dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.anychart.AnyChartView
+                            android:id="@+id/chartLinearGaugeCurrExWeek"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="end"
+                            android:layout_marginHorizontal="12dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@color/transparent"
+                            android:backgroundTint="@color/transparent"
+                            tools:layout_editor_absoluteX="12dp" />
+                    </RelativeLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
 
@@ -137,8 +158,8 @@
                     <com.anychart.AnyChartView
                         android:id="@+id/chartColumnStackedMonthExAbs"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:layout_marginTop="50dp"
+                        android:layout_height="400dp"
+                        android:layout_marginTop="70dp"
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:layout_marginHorizontal="12dp"
@@ -148,17 +169,19 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.anychart.AnyChartView
-                        android:id="@+id/chartColumnStackedMonthExpr"
+                        android:id="@+id/chartColumnStackedMonthExPr"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:layout_marginTop="50dp"
+                        android:layout_height="400dp"
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginTop="70dp"
+                        android:layout_marginBottom="10dp"
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
-                        android:layout_marginHorizontal="12dp"
-                        android:layout_marginBottom="10dp"
+                        android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="invisible" />
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
@@ -258,7 +281,7 @@
                         android:id="@+id/chartPieMonthExAbs"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:layout_marginTop="50dp"
+                        android:layout_marginTop="70dp"
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:layout_marginHorizontal="12dp"
@@ -271,7 +294,7 @@
                         android:id="@+id/chartPieMonthExPr"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:layout_marginTop="50dp"
+                        android:layout_marginTop="70dp"
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:layout_marginHorizontal="12dp"
@@ -348,7 +371,7 @@
                         android:id="@+id/chartPieYearExAbs"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:layout_marginTop="50dp"
+                        android:layout_marginTop="70dp"
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:layout_marginHorizontal="12dp"
@@ -361,7 +384,7 @@
                         android:id="@+id/chartPieYearExPr"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:layout_marginTop="50dp"
+                        android:layout_marginTop="70dp"
                         android:background="@color/transparent"
                         android:backgroundTint="@color/transparent"
                         android:layout_marginHorizontal="12dp"
@@ -373,6 +396,19 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
+
+        <com.anychart.AnyChartView
+            android:id="@+id/chart_test_column_stack"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="300dp"
+            android:background="@color/transparent"
+            android:backgroundTint="@color/transparent"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

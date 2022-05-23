@@ -130,7 +130,7 @@ public class ChartCurrentGaugeCurrEx{
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            gaugeChart = itemView.findViewById(R.id.chartLinearGaugeCurrEx);
+            gaugeChart = itemView.findViewById(R.id.chartLinearGaugeCurrExWeek);
         }
     }
 }
