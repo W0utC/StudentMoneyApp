@@ -44,32 +44,29 @@
         android:id="@+id/paymentMethode"
         android:layout_width="215dp"
         android:layout_height="52dp"
-        android:layout_marginBottom="288dp"
         android:background="@drawable/category_button"
         android:dropDownSelector="@color/opaqueBlue"
         android:entries="@array/payment_methode"
         android:paddingHorizontal="10dp"
         android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category" />
 
     <Spinner
         android:id="@+id/category"
         android:layout_width="215dp"
         android:layout_height="52dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/category_button"
         android:dropDownSelector="@android:drawable/ic_menu_sort_by_size"
         android:entries="@array/categories"
         android:paddingHorizontal="10dp"
         android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@+id/paymentMethode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/txtStore" />
 
     <EditText
         android:id="@+id/txtStore"
@@ -92,7 +89,7 @@
         android:id="@+id/btnReceive"
         android:layout_width="268dp"
         android:layout_height="85dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="#00FFFFFF"
         android:onClick="onBtnReceive_Clicked"
         android:scaleType="centerCrop"
@@ -107,15 +104,15 @@
         android:id="@+id/txtHead"
         android:layout_width="162dp"
         android:layout_height="42dp"
-        android:layout_marginBottom="40dp"
         android:gravity="center"
         android:text="@string/add_income"
         android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/imageButton"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btnReceive"
+        app:layout_constraintEnd_toEndOf="@+id/btnReceive"
         app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/btnReceive"
+        app:layout_constraintTop_toTopOf="@+id/btnReceive" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

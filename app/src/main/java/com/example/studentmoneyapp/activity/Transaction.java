@@ -32,7 +32,6 @@ public class Transaction extends AppCompatActivity {
     private RequestQueue requestQueue;
     private String requestURL;
     private static final String SUBMIT_URL = "https://studev.groept.be/api/a21pt114/addTransactions";
-    private static final String GET_URL = "https://studev.groept.be/api/a21pt114/getTransactions";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,14 +108,12 @@ public class Transaction extends AppCompatActivity {
 
     public String getCurrentDate() {
         String date = LocalDate.now().toString();
-        //Log.i("Date", "The date at which this is executed is: " + date);
         return date;
     }
 
     public String getCurrentDateAndTime() {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd+HH:mm:ss");
         String dateTime = LocalDateTime.now().format(format);
-        //Log.i("Data", "The date and time at which this is executed is 2: " + dateTime);
         return dateTime;
 
     }

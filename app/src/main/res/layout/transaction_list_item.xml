@@ -39,10 +39,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
-            android:layout_marginStart="0dp"
+            android:layout_marginStart="2dp"
             android:layout_toEndOf="@+id/txtTransactionListAmount"
             android:padding="5dp"
-            android:text="store" />
+            android:text="storeStore" />
 
     </RelativeLayout>
 

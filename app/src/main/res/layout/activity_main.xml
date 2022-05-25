@@ -61,9 +61,11 @@
         android:backgroundTint="@color/transparent"
         android:onClick="onBtnViewData_Clicked"
         android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAddNew"
+        app:layout_constraintVertical_bias="0.131"
         app:srcCompat="@drawable/overview_v2"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -75,7 +77,6 @@
         android:backgroundTint="@color/transparent"
         android:onClick="onBtnAddNew_Clicked"
         android:scaleType="centerCrop"
-        android:tint="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -89,27 +90,15 @@
         android:layout_marginBottom="180dp"
         android:backgroundTint="@color/transparent"
         android:onClick="onBtnResetData_Clicked"
-        android:tint="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.823"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/stat_notify_sync"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_buttons"
-        android:onClick="onBtnTest_Clicked"
-        android:text="test scrollable activity"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.82"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnViewData"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@android:drawable/stat_notify_sync"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
+        app:tint="@color/black" />
 
     <ImageButton
         android:id="@+id/btSettingsMain"
@@ -119,7 +108,8 @@
         android:onClick="onBtnSettingsMain_Clicked"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_preferences" />
+        app:srcCompat="@android:drawable/ic_menu_preferences"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

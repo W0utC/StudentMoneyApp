@@ -1,12 +1,9 @@
 package com.example.studentmoneyapp.model;
 
-import static java.security.AccessController.getContext;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,7 +58,6 @@ public class TransactionsRecViewAdapter extends RecyclerView.Adapter<Transaction
     }
 
     public void setColor(ViewHolder holder, int pos){
-
         if(transactions.get(pos).getAmount() > 0) {
             int expenseGreen = ContextCompat.getColor(context,R.color.expenseGreen);
             holder.transactionListItemParent.setCardBackgroundColor(expenseGreen);
@@ -83,8 +79,9 @@ public class TransactionsRecViewAdapter extends RecyclerView.Adapter<Transaction
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-
-        private TextView txtDate, txtAmount, txtStore;
+        private TextView txtDate;
+        private TextView txtAmount;
+        private TextView txtStore;
         private CardView transactionListItemParent;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

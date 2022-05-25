@@ -30,7 +30,6 @@ public class TransactionReceive extends AppCompatActivity {
     private RequestQueue requestQueue;
     private String requestURL;
     private static final String SUBMIT_URL = "https://studev.groept.be/api/a21pt114/addTransactions";
-    private static final String GET_URL = "https://studev.groept.be/api/a21pt114/getTransactions";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,7 +54,6 @@ public class TransactionReceive extends AppCompatActivity {
                     + "/" + amount
                     + "/" + methode
                     + "/" + store;
-            //Log.i("Database", "requestURL: " + requestURL);
 
             finish();
             storeToDataBase();
@@ -97,24 +95,12 @@ public class TransactionReceive extends AppCompatActivity {
 
     public String getCurrentDate() {
         String date = LocalDate.now().toString();
-        //Log.i("Date", "The date at which this is executed is: " + date);
         return date;
     }
 
     public String getCurrentDateAndTime() {
-        /*String time = LocalTime.now().toString();
-        time = time.substring(0, time.length()-4);
-        String date = getCurrentDate();
-        String spaceForURL = "+";
-
-        String tempString = date + spaceForURL + time;
-        Log.i("Data", "The date and time at which this is executed is 1: " + tempString);
-        return tempString;*/
-
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd+HH:mm:ss");
         String dateTime = LocalDateTime.now().format(format);
-        //Log.i("Data", "The date and time at which this is executed is 2: " + dateTime);
         return dateTime;
-
     }
 }

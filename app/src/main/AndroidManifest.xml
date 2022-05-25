@@ -29,9 +29,6 @@
             android:name=".activity.ViewData"
             android:exported="true" />
         <activity
-            android:name=".activity.ScrollableTest"
-            android:exported="true" />
-        <activity
             android:name=".activity.TransactionReceive"
             android:exported="true" />
         <activity
@@ -39,9 +36,6 @@
             android:exported="true" />
         <activity
             android:name=".activity.ChartsData"
-            android:exported="true" />
-        <activity
-            android:name=".activity.TestTestBeu"
             android:exported="true" />
 
         <meta-data

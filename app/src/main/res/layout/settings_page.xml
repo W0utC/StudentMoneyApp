@@ -50,6 +50,35 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linLayAudio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtSettings"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="28dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linLayWeeklyExpense">
+
+        <TextView
+            android:id="@+id/txtAudio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="audio: "
+            android:textColor="#424242"
+            android:textSize="17dp" />
+
+        <CheckBox
+            android:id="@+id/checkboxAudio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </CheckBox>
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/btSaveChanges"
         android:layout_width="wrap_content"
@@ -60,7 +89,8 @@
         android:onClick="onBtnSaveChanges_Clicked"
         android:text="@string/save"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linLayWeeklyExpense" />
+        app:layout_constraintTop_toBottomOf="@+id/linLayAudio" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

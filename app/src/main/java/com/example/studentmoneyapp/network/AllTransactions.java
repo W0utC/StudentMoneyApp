@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.studentmoneyapp.activity.MainActivity;
 import com.example.studentmoneyapp.model.SingleTransaction;
 import com.example.studentmoneyapp.utils.TransactionClass;
 
@@ -18,15 +19,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AllTransactions {
 
     private RequestQueue requestQueue;
-    private TextView txtResponse;
-    private String requestURL;
-    private static final String SUBMIT_URL = "https://studev.groept.be/api/a21pt114/addTransactions";
     private static final String GET_URL = "https://studev.groept.be/api/a21pt114/getTransactions";
     private final Context context;
+    boolean check;
+
+    private static final String TAG = AllTransactions.class.getSimpleName();
+
 
     private final ArrayList<SingleTransaction> singleTransactionList; //arrayList of al the transactions
 
@@ -34,12 +37,15 @@ public class AllTransactions {
         this.context = context;
         singleTransactionList = new ArrayList<>();
         Log.i("AllTransactionsClass", "I started running");
+
+        check = false;
         setTransactions(context);
     }
 
-    public void setTransactions(Context context) {
-        requestQueue = Volley.newRequestQueue(context);
+    public boolean setTransactions(Context context) {
+        AtomicBoolean tempB = new AtomicBoolean(false);
 
+        requestQueue = Volley.newRequestQueue(context);
 
         JsonArrayRequest getRequest = new JsonArrayRequest(Request.Method.GET, GET_URL, null,
 
@@ -70,15 +76,18 @@ public class AllTransactions {
                         }
                     }
                     TransactionClass.getInstance().setList(singleTransactionList); //declare singleTransactionList in TransactionClass so it can be accessed from anywhere
+                    tempB.set(true);
+                    check = tempB.get();
+                    Log.i(TAG, "I set check to true and shows: " + check);
                 },
 
                 error -> {
-                    txtResponse.setText(error.getLocalizedMessage());
-                    Log.d("Database", error.getLocalizedMessage(), error);
+                    Log.d(TAG, error.getLocalizedMessage(), error);
                 }
         );
         requestQueue.add(getRequest);
-        Log.i("AllTransactionsClass", "I stopped running");
+        Log.i(TAG, "I stopped running");
+        return tempB.get();
     }
 
     public void resetTransactions() {
@@ -91,11 +100,6 @@ public class AllTransactions {
     }
 
     public LocalDateTime setDateTime(String stDate) {
-        /*String dateString = stDate.substring(0, 9);
-        String timeString = stDate.substring(11, 18);
-        String completeDateString = dateString + "T" + timeString;
-        LocalDateTime date = LocalDateTime.parse(completeDateString);*/
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.parse(stDate, formatter);
 
@@ -104,5 +108,10 @@ public class AllTransactions {
 
     public List<SingleTransaction> getSingleTransactionList() {
         return singleTransactionList;
+    }
+
+    public boolean getCheck() {
+        Log.i(TAG, "I returned val on getCheck: " + check);
+        return check;
     }
 }

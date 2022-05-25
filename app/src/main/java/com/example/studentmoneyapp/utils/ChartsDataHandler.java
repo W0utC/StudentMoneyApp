@@ -8,7 +8,6 @@ import android.util.Log;
 import com.example.studentmoneyapp.R;
 import com.example.studentmoneyapp.model.SingleTransaction;
 
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -16,8 +15,6 @@ public class ChartsDataHandler {
 
     ArrayList<SingleTransaction> transactions;
     Context context;
-
-    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     private static final String TAG = ChartsDataHandler.class.getSimpleName();
 
@@ -102,11 +99,6 @@ public class ChartsDataHandler {
     /** returns a list of sums of the category's of a month in a year
      * [sumFood, sumHoreca, sumGoingOut, sumSport, sumTech, sumVaria]**/
     public ArrayList<Double> getSumListOfMothCat(int year, int month){
-        //if(month < 0 || month > 12){
-        //    Log.e(TAG,getClass().getCanonicalName() + ": Input out of bounds! max range: 1-52");
-        //    return null;
-        //}
-
         String[] categories = context.getResources().getStringArray(R.array.categories);
         ArrayList<Double> sumList= new ArrayList<>();
 
@@ -188,4 +180,15 @@ public class ChartsDataHandler {
         return max;
     }
 
+    public void updateList(){
+        //transactions.clear();
+        transactions = TransactionClass.getInstance().getList();
+    }
+
+    public ArrayList<SingleTransaction> getList(){
+        if (transactions!= null){
+        return transactions;
+        }
+        return null;
+    }
 }

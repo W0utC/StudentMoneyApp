@@ -6,41 +6,138 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.studentmoneyapp.R;
-import com.example.studentmoneyapp.utils.AllSettingsClass;
-import com.example.studentmoneyapp.utils.Setting;
-
-import java.lang.reflect.Field;
 
 public class Settings extends AppCompatActivity {
 
     private static final String SHARED_PREFERENCES_FOLDER_NAME = "settings";
-    private EditText maxWeeklyExpense;
+    private EditText maxWeeklyAllowance;
+    private CheckBox audio;
+
+    private static final String TAG = Settings.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_page);
 
-        maxWeeklyExpense = (EditText) findViewById(R.id.eTxtWeeklyExpense);
+        maxWeeklyAllowance = (EditText) findViewById(R.id.eTxtWeeklyExpense);
+        audio = (CheckBox) findViewById(R.id.checkboxAudio);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fillAllFields();
+    }
+
+    public void fillAllFields(){
+        fillWeeklyAllowance();
+        fillAudioCheck();
+    }
+
+    public void fillWeeklyAllowance(){
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_FOLDER_NAME, Context.MODE_PRIVATE);
+        int intVal = sharedPref.getInt("maxWeeklyExpense", -1);
+        Log.i(TAG, "int income: " + intVal);
+
+        maxWeeklyAllowance.setText(String.valueOf(intVal));
+    }
+
+    public void fillAudioCheck(){
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_FOLDER_NAME, Context.MODE_PRIVATE);
+        boolean BooleanVal = sharedPref.getBoolean("audioSetting", false);
+        Log.i(TAG, "boolean audio sharedPref before: " + String.valueOf(BooleanVal));
+
+        if(BooleanVal){
+            audio.setChecked(true);
+        }
     }
 
     public void onBtnSaveChanges_Clicked(View caller) {
         if(checkReadySave()) {
             saveSettings();
+
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+
             finish();
-            Toast("settings saved");
+            toast("settings saved");
         }
     }
 
-    public void Toast(String message){
+    public void saveSettings(){
+        saveWeeklyExpense();
+        saveAudio();
+    }
+
+    public void saveAudio(){
+        Log.i(TAG, "boolean audio sharedPref before: " + String.valueOf(audio.isChecked()));
+        if(audio.isChecked()){
+            saveSharedSettings("audioSetting", true);
+        }else{
+            saveSharedSettings("audioSetting", false);
+        }
+
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_FOLDER_NAME, Context.MODE_PRIVATE);
+        Log.i(TAG, "boolean audio sharedPref saved in pref: " + String.valueOf(sharedPref.getBoolean("audioSetting", false)));
+    }
+
+    public void saveWeeklyExpense(){
+        saveSharedSettings("maxWeeklyExpense", getMaxWeeklyAllowance());
+    }
+
+    public void saveSharedSettings(String settingName, Object obj){
+        Log.i(TAG, "saveSharedSettings has started: " + obj);
+
+        if(obj instanceof String){
+            saveSharedSettingsStr(settingName, String.valueOf(obj));
+            Log.i(TAG, "class of object String: " + obj);
+        }else if(obj instanceof Boolean){
+            saveSharedSettingsBoolean(settingName, (Boolean) obj);
+            Log.i(TAG, "class of object boolean: " + obj);
+        }else if(obj instanceof Integer){
+            saveSharedSettingsInt(settingName, (Integer) obj);
+        }else if(obj instanceof Float){
+            //saveSharedSettingsFloat(settingName, Float.valueOf(obj));
+        }
+    }
+
+    public void saveSharedSettingsStr(String settingName, String value){
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_FOLDER_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putString(settingName, value);
+        editor.apply();
+        editor.clear();
+    }
+
+    public void saveSharedSettingsBoolean(String settingName, Boolean value){
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_FOLDER_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putBoolean(settingName, value);
+        editor.apply();
+        editor.clear();
+        Log.i(TAG, "class of object Boolean: " + sharedPref.getBoolean("audioSetting", false));
+    }
+
+    public void saveSharedSettingsInt(String settingName, int value){
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_FOLDER_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putInt(settingName, value);
+        editor.apply();
+        editor.clear();
+    }
+
+    public void toast(String message){
         CharSequence text = message;
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(Settings.this, text, duration);
@@ -48,47 +145,17 @@ public class Settings extends AppCompatActivity {
     }
 
     private boolean checkReadySave() {
-        if (isEmpty(maxWeeklyExpense)) {
-            maxWeeklyExpense.setError("fill in!");
+        if (isEmpty(maxWeeklyAllowance)) {
+            maxWeeklyAllowance.setError("fill in!");
         }
-        return !isEmpty(maxWeeklyExpense);
+        return !isEmpty(maxWeeklyAllowance);
     }
 
     private boolean isEmpty(EditText etText) {
         return etText.getText().toString().trim().length() <= 0;
     }
 
-    public void saveSettings(){
-        Setting setting = new Setting("maxWeeklyExpense", getMaxWeeklyExpense());
-        AllSettingsClass.getInstance().updateSettingList(setting);
-        saveSettingToSharedPref(setting);
-    }
-
-    public int getMaxWeeklyExpense(){
-        return Integer.parseInt(maxWeeklyExpense.getText().toString());
-    }
-
-    private void saveSettingToSharedPref(Setting setting){
-        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_FOLDER_NAME, Context.MODE_PRIVATE);
-
-        //Log.i("Settings", "--------------------------------------------------------------------");
-        SharedPreferences.Editor editor = sharedPref.edit();
-        //Log.i("Settings", "setting.getValueOfSetting: " + setting.getValueOfSetting());
-        editor.putInt(setting.getNameOfSetting(), setting.getValueOfSetting());
-        editor.apply();
-
-        Setting setMaxWeeklyExpense = getFromSharedPref("maxWeeklyExpense");
-        //Log.i("Settings", "sharedPref after upload: " + setMaxWeeklyExpense);
-    }
-
-    public Setting getFromSharedPref(String nameOfSetting){
-        int defaultValue = -9999;
-
-        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_FOLDER_NAME, Context.MODE_PRIVATE);
-        int intVal = sharedPref.getInt(nameOfSetting, defaultValue);
-
-        //Log.i("Settings", "new setting: " + nameOfSetting + ", " + intVal);
-        Setting setting = new Setting(nameOfSetting, intVal);
-        return setting;
+    public int getMaxWeeklyAllowance(){
+        return Integer.parseInt(maxWeeklyAllowance.getText().toString());
     }
 }

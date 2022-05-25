@@ -1,6 +1,8 @@
 package com.example.studentmoneyapp.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.example.studentmoneyapp.network.AllTransactions;
 import com.example.studentmoneyapp.R;
 
@@ -20,19 +22,18 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtMain4;
     private TextView txtMain5;
 
-    private RequestQueue requestQueue;
-    private TextView txtResponse;
-    private String requestURL;
-    private static final String SUBMIT_URL = "https://studev.groept.be/api/a21pt114/addTransactions";
-    private static final String GET_URL = "https://studev.groept.be/api/a21pt114/getTransactions";
-
     private AllTransactions allTransactions;
+    MediaPlayer mp;
+
+    private static final String SHARED_PREFERENCES_FOLDER_NAME = "settings";
+    private static final String AUDIO_SETTING = "audioSetting";
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //setContentView(R.layout.test_test_beu); //TODO test
 
         txtMain1 = findViewById(R.id.txtMain1);
         txtMain2 = findViewById(R.id.txtMain2);
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         txtMain5 = findViewById(R.id.txtMain5);
 
         allTransactions = new AllTransactions(getApplicationContext());
+        playAudio();
     }
 
     @Override
@@ -49,25 +51,36 @@ public class MainActivity extends AppCompatActivity {
 
         allTransactions.resetTransactions();
         updatePreviewList();
+
+        playAudio();
     }
 
     public void onBtnAddNew_Clicked(View caller) {
+        pauseAudio();
+
         Intent intent = new Intent(this, Transaction.class);
         startActivity(intent);
     }
 
     public void onBtnViewData_Clicked(View caller) {
-        Intent intent = new Intent(this, ViewData.class);
-        startActivity(intent);
+        Log.i(TAG, "get check on click: " + allTransactions.getCheck());
+
+        if(allTransactions.getCheck()) {
+            Log.i(TAG, "onBtnView activated");
+            pauseAudio();
+
+            Intent intent = new Intent(this, ViewData.class);
+            startActivity(intent);
+        }else{
+            toast("can't reach the sever at the moment");
+        }
     }
 
     public void onBtnResetData_Clicked(View caller) {
         updatePreviewList();
-    }
-
-    public void onBtnTest_Clicked(View caller) {
-        Intent intent = new Intent(this, ScrollableTest.class);
-        startActivity(intent);
+        if(!allTransactions.getCheck() && isEmpty(txtMain2)){ //&& isEmpty(txtMain2)
+            txtMain1.setText("failed to connect to the server");
+        }
     }
 
     public void onBtnSettingsMain_Clicked(View caller) {
@@ -77,11 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void updatePreviewList() {
         int length;
-        //List<SingleTransaction> transactions = new ArrayList<>(allTransactions);
-
         int sizeSingleTransactionList = allTransactions.getSingleTransactionList().size();
         Log.i("MainActivity", "size of SingleTransactionList: " + sizeSingleTransactionList);
-
 
         if (sizeSingleTransactionList < 1) length = 0;
         else if (sizeSingleTransactionList < 2) length = 1;
@@ -116,18 +126,54 @@ public class MainActivity extends AppCompatActivity {
                 if (i == sizeSingleTransactionList - 4) txtMain4.setText(tempString);
                 if (i == sizeSingleTransactionList - 5) txtMain5.setText(tempString);
 
-                //Log.i("printer", singleTransaction.toString());
-                //transactions.add(singleTransaction);
             } catch (Exception e) {
                 Log.e("MainActivity", e.toString());
                 e.printStackTrace();
-
             }
         }
     }
 
+    private boolean isEmpty(TextView txt) {
+        return txt.getText().toString().trim().length() <= 0;
+    }
 
-    //public void updatePreviewList() { // TODO aanpassen zodat van transactions (arrayList) de data haalt en niet nog is van dataBase
+    public void playAudio(){
+        if(checkAudioChecked()){
+            mp = MediaPlayer.create(this, R.raw.one_hour_angrybirds_theme_song);
+            mp.start();
+        }
+        else if(mp != null) {
+            mp.stop();
+        }
+    }
+
+    public void pauseAudio(){
+        try {
+            if(mp != null){
+                mp.pause();
+            }
+        }catch (Exception e){
+            Log.e(TAG, e.getLocalizedMessage());
+        }
+    }
+
+    public boolean checkAudioChecked(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_FOLDER_NAME, MODE_PRIVATE);
+        Log.i(TAG, "audioSetting retrieved: " + sharedPreferences.getBoolean(AUDIO_SETTING, false));
+        boolean check = sharedPreferences.getBoolean(AUDIO_SETTING, false);
+        return check;
+    }
+
+    public void toast(String message){
+        CharSequence text = message;
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(this, text, duration);
+        toast.show();
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------
+
+    //public void updatePreviewList() { // TODO aanpassen
     /*    //transactions.stream().limit(5).forEach();
 
 

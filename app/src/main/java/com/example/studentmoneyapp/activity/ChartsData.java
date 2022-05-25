@@ -3,10 +3,7 @@ package com.example.studentmoneyapp.activity;
 import static java.lang.Math.abs;
 import static java.lang.Math.round;
 
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.util.Log;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.anychart.APIlib;
@@ -16,13 +13,10 @@ import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
 import com.anychart.charts.LinearGauge;
-import com.anychart.charts.Pie;
-import com.anychart.core.SeriesBase;
 import com.anychart.core.cartesian.series.Line;
 import com.anychart.core.lineargauge.pointers.Marker;
 import com.anychart.data.Mapping;
 import com.anychart.data.Set;
-import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
 import com.anychart.enums.Orientation;
 import com.anychart.enums.ScaleStackMode;
@@ -34,27 +28,14 @@ import com.example.studentmoneyapp.utils.ChartDataColStackMonth;
 import com.example.studentmoneyapp.utils.ChartsDataHandler;
 import com.example.studentmoneyapp.utils.TransactionClass;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChartsData extends AppCompatActivity {
     ArrayList<SingleTransaction> transactions; // TODO test
 
-    AnyChartView chartLinearGaugeCurrentEx;
-    AnyChartView chartColumnsStackedMonthExAbs;
-    AnyChartView chartColumnsStackedMonthExPr;
-    AnyChartView chartBarStackMonthExAbs;
-    AnyChartView chartBarStackMonthExVsIn;
-    AnyChartView chartPieMonthExAbs;
-    AnyChartView chartPieMonthExPr;
-    AnyChartView chartPieYearExAbs;
-    AnyChartView chartPieYearExPr;
-
     ChartsDataHandler chartsDataHandler;
     private static final String TAG = ChartsData.class.getSimpleName();
-
-    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +43,10 @@ public class ChartsData extends AppCompatActivity {
         setContentView(R.layout.charts_data_page);
 
         chartsDataHandler = new ChartsDataHandler(this);
-
         transactions = new ArrayList<>(TransactionClass.getInstance().getList()); // TODO test
-
 
         setupChartLinearGaugeCurrentEx();
         setupChartColumnStackedMonthEx();
-
     }
 
 
@@ -109,7 +87,6 @@ public class ChartsData extends AppCompatActivity {
                 .fill(gradientKey);
 
         linearGauge.axis("0.5%").globalOffset("-1%").scale().maximum(150).minimum(0);
-        //linearGauge.label(16).fontColor("Red");
 
         linearGauge.axis(0).offset("-10.5%").orientation(Orientation.LEFT);
 
@@ -168,8 +145,6 @@ public class ChartsData extends AppCompatActivity {
                 .fill(gradientKey);
 
         linearGauge.axis("0.5%").globalOffset("-1%").scale().maximum(400).minimum(0);
-        //linearGauge.label(16).fontColor("Red");
-
         linearGauge.axis(0).offset("-10.5%").orientation(Orientation.LEFT);
 
         // Set marker point
@@ -195,7 +170,6 @@ public class ChartsData extends AppCompatActivity {
 
 
     public void setupChartColumnStackedMonthEx(){
-        //testChartColumnStacked();
         setupChartColumnStackedMonthExAbs();
     }
 
@@ -203,7 +177,6 @@ public class ChartsData extends AppCompatActivity {
         AnyChartView columnStacked = findViewById(R.id.chartColumnStackedMonthExAbs);//original: AnyChartView columnStacked = findViewById(R.id.chartColumnStackedMonthExAbs);
 
         APIlib.getInstance().setActiveAnyChartView(columnStacked); //REALLY important for good functioning!!!
-        //anyChartView.setProgressBar(findViewById(R.id.progress_bar));
 
         Cartesian cartesian = AnyChart.cartesian();
 
@@ -239,18 +212,7 @@ public class ChartsData extends AppCompatActivity {
                     (Number) sumList.get(3),
                     (Number) sumList.get(4),
                     (Number) sumList.get(5)));
-
-            /*Log.i(TAG, "data added ColumnStackedMonth: " + (Number) sumList.get(0) + ", " +
-                    (Number) sumList.get(1) + ", " +
-                    (Number) sumList.get(2) + ", " +
-                    (Number) sumList.get(3) + ", " +
-                    (Number) sumList.get(4) + ", " +
-                    (Number) sumList.get(5));*/
         }
-
-
-
-
 
         Set set = Set.instantiate();
         set.data(data);
@@ -260,13 +222,9 @@ public class ChartsData extends AppCompatActivity {
         Mapping column4Data = set.mapAs("{ x: 'x', value: 'value4' }");
         Mapping column5Data = set.mapAs("{ x: 'x', value: 'value5' }");
         Mapping column6Data = set.mapAs("{ x: 'x', value: 'value6' }");
-        //column1Data.set(0, "food", "#009688");
 
         cartesian.column(column1Data).name("food");
-
-        //cartesian.column(column1Data);
         cartesian.crosshair(true);
-
         cartesian.column(column2Data).name("horeca");
         cartesian.column(column3Data).name("goingOut");
         cartesian.column(column4Data).name("sport");
@@ -279,12 +237,8 @@ public class ChartsData extends AppCompatActivity {
                 .padding(0, 0, 20, 0)
                 .itemsLayout(LegendLayout.HORIZONTAL_EXPANDABLE);
 
-        // set yAxis labels formatter
-        //cartesian.yAxis("1dp").labels().format("{%Value}{groupsSeparator: }");
-
         // set titles for axes
         cartesian.xAxis("1dp").title("months");
-        //cartesian.yAxis("1dp").title("money's");
 
         cartesian
                 .tooltip()
@@ -299,11 +253,7 @@ public class ChartsData extends AppCompatActivity {
         columnStacked.setChart(cartesian);
     }
 
-    public void setupChartColumnStackedMonthExPr(){
-
-    }
-
-    public void testChartColumnStacked(){
+    public void testChartColumnStacked(){ //TODO test
         AnyChartView anyChartView = findViewById(R.id.chartColumnStackedMonthExAbs);
         APIlib.getInstance().setActiveAnyChartView(anyChartView); //REALLY important for good functioning!!!
         //anyChartView.setProgressBar(findViewById(R.id.progress_bar));
@@ -370,87 +320,4 @@ public class ChartsData extends AppCompatActivity {
             setValue("value4", value4);
         }
     }
-
-    /*private class ChartDataColStackMonth extends ValueDataEntry {
-
-        public ChartDataColStackMonth(String x, Number foodSum, Number horecaSum, Number goingOutSum, Number sportSum, Number techSum, Number variaSum) {
-            super(x, foodSum);
-            setValue("value2", horecaSum);
-            setValue("value3", goingOutSum);
-            setValue("value4", sportSum);
-            setValue("value5", techSum);
-            setValue("value6", variaSum);
-        }
-    }*/
-
-
-
-
-
-
-
-
-
-
-    public void setupPieChart(){ // TODO test
-        String[] categories = getResources().getStringArray(R.array.categories);
-        //float[] chartSumData = new float[] {}; // int[] a = new int[] {0, 0, 0, 0};
-
-        float[] chartSumData = getChartSumData(getTransactions());
-        Log.i("ViewData", "chartSumData: " + chartSumData[0]);
-
-        Pie pie = AnyChart.pie();
-        List<DataEntry> dataEntries = new ArrayList<>();
-        for (int i=0;i<chartSumData.length; ++i){
-            dataEntries.add(new ValueDataEntry(categories[i], abs(chartSumData[i])));
-        }
-
-        pie.data(dataEntries); //put the data in the pie
-        pie.title("expenses"); //set title of pie
-        pie.innerRadius(90); //radius in % of the pie
-        pie.labels().fontColor("595959"); //color of labels
-        pie.labels().position("inside"); //labels inside the pie
-        pie.insideLabelsOffset("-35%"); // set the offset for the labels
-
-        pie.background().fill("Snow"); //set background to a colour
-
-        pie.legend().title("category")
-                .fontColor("595959")
-                .title().fontColor("595959");
-        pie.legend()
-                .position("bottom")
-                .itemsLayout(LegendLayout.HORIZONTAL_EXPANDABLE)
-                .align(Align.CENTER);
-
-        chartLinearGaugeCurrentEx.setChart(pie); //build and show the pie
-    }
-
-    public float[] getChartSumData(ArrayList<SingleTransaction> transactions){ // TODO test
-        float sumFood = 0;
-        float sumGoingOut = 0;
-        float sumSport = 0;
-        float sumTech = 0;
-        float sumVaria = 0;
-
-        for(SingleTransaction sl : transactions){
-            String type = sl.getType();
-            float amount = sl.getAmount();
-            if (type.equals("food")) {
-                sumFood = sumFood + amount;
-                //Log.i("ViewData", "sumFood: " + sumFood);
-            }
-            if (type.equals("goingOut")) sumGoingOut = sumGoingOut + amount;
-            if (type.equals("sport")) sumSport = sumSport + amount;
-            if (type.equals("tech")) sumTech = sumTech + amount;
-            if (type.equals("varia")) sumVaria = sumVaria + amount;
-        }
-        float[] chartSum = new float[] {sumFood, sumGoingOut, sumSport, sumTech, sumVaria};
-        Log.i("ViewData","chartSum: " + chartSum[0] + ", " + chartSum[1] + ", " + chartSum[2] + ", " + chartSum[3] + ", " + chartSum[4]);
-        return chartSum;
-    }
-
-    public ArrayList<SingleTransaction> getTransactions() {
-        return transactions;
-    } // TODO test
-
 }
