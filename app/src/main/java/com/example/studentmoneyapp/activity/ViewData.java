@@ -141,10 +141,10 @@ public class ViewData extends AppCompatActivity {
         circularGauge.cap().radius("3%").enabled(true).fill("#545f69");
 
         circularGauge.range(0)
-                .from(0)
+                .from(0)        
                 .to(50)
                 .position("inside")
-                .fill("#dd2c00 0.4")
+                .fill("#009900 0.4")
                 .startSize(50)
                 .endSize(50)
                 .radius(98);
@@ -162,7 +162,7 @@ public class ViewData extends AppCompatActivity {
                 .from(100)
                 .to(150)
                 .position("inside")
-                .fill("#009900 0.4")
+                .fill("#dd2c00 0.4")
                 .startSize(50)
                 .endSize(50)
                 .radius(98);
