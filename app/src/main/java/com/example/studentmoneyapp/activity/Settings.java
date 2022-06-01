@@ -17,6 +17,8 @@ import com.example.studentmoneyapp.R;
 public class Settings extends AppCompatActivity {
 
     private static final String SHARED_PREFERENCES_FOLDER_NAME = "settings";
+    private static final String SHARED_PREFERENCES_AUDIO = "audioSetting";
+    private static final String SHARED_PREFERENCES_MAX_EXPENSE = "maxWeeklyExpense";
     private EditText maxWeeklyAllowance;
     private CheckBox audio;
 
@@ -44,16 +46,14 @@ public class Settings extends AppCompatActivity {
 
     public void fillWeeklyAllowance(){
         SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_FOLDER_NAME, Context.MODE_PRIVATE);
-        int intVal = sharedPref.getInt("maxWeeklyExpense", -1);
-        Log.i(TAG, "int income: " + intVal);
+        int intVal = sharedPref.getInt(SHARED_PREFERENCES_MAX_EXPENSE, -1);
 
         maxWeeklyAllowance.setText(String.valueOf(intVal));
     }
 
     public void fillAudioCheck(){
         SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_FOLDER_NAME, Context.MODE_PRIVATE);
-        boolean BooleanVal = sharedPref.getBoolean("audioSetting", false);
-        Log.i(TAG, "boolean audio sharedPref before: " + String.valueOf(BooleanVal));
+        boolean BooleanVal = sharedPref.getBoolean(SHARED_PREFERENCES_AUDIO, false);
 
         if(BooleanVal){
             audio.setChecked(true);
@@ -78,30 +78,24 @@ public class Settings extends AppCompatActivity {
     }
 
     public void saveAudio(){
-        Log.i(TAG, "boolean audio sharedPref before: " + String.valueOf(audio.isChecked()));
         if(audio.isChecked()){
-            saveSharedSettings("audioSetting", true);
+            saveSharedSettings(SHARED_PREFERENCES_AUDIO, true);
         }else{
-            saveSharedSettings("audioSetting", false);
+            saveSharedSettings(SHARED_PREFERENCES_AUDIO, false);
         }
 
         SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_FOLDER_NAME, Context.MODE_PRIVATE);
-        Log.i(TAG, "boolean audio sharedPref saved in pref: " + String.valueOf(sharedPref.getBoolean("audioSetting", false)));
     }
 
     public void saveWeeklyExpense(){
-        saveSharedSettings("maxWeeklyExpense", getMaxWeeklyAllowance());
+        saveSharedSettings(SHARED_PREFERENCES_MAX_EXPENSE, getMaxWeeklyAllowance());
     }
 
     public void saveSharedSettings(String settingName, Object obj){
-        Log.i(TAG, "saveSharedSettings has started: " + obj);
-
         if(obj instanceof String){
             saveSharedSettingsStr(settingName, String.valueOf(obj));
-            Log.i(TAG, "class of object String: " + obj);
         }else if(obj instanceof Boolean){
             saveSharedSettingsBoolean(settingName, (Boolean) obj);
-            Log.i(TAG, "class of object boolean: " + obj);
         }else if(obj instanceof Integer){
             saveSharedSettingsInt(settingName, (Integer) obj);
         }else if(obj instanceof Float){
@@ -125,7 +119,6 @@ public class Settings extends AppCompatActivity {
         editor.putBoolean(settingName, value);
         editor.apply();
         editor.clear();
-        Log.i(TAG, "class of object Boolean: " + sharedPref.getBoolean("audioSetting", false));
     }
 
     public void saveSharedSettingsInt(String settingName, int value){

@@ -92,7 +92,6 @@ public class Transaction extends AppCompatActivity {
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(Transaction.this, text, duration);
                     toast.show();
-                    Log.d("Database", "transaction added");
                 },
 
                 error -> {
@@ -100,7 +99,6 @@ public class Transaction extends AppCompatActivity {
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(Transaction.this, text, duration);
                     toast.show();
-                    Log.d("Database", error.getLocalizedMessage(), error);
                 }
         );
         requestQueue.add(submitRequest);
@@ -115,6 +113,5 @@ public class Transaction extends AppCompatActivity {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd+HH:mm:ss");
         String dateTime = LocalDateTime.now().format(format);
         return dateTime;
-
     }
 }

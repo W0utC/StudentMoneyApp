@@ -2,13 +2,11 @@ package com.example.studentmoneyapp.network;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.studentmoneyapp.activity.MainActivity;
 import com.example.studentmoneyapp.model.SingleTransaction;
 import com.example.studentmoneyapp.utils.TransactionClass;
 
@@ -36,7 +34,6 @@ public class AllTransactions {
     public AllTransactions(Context context) {
         this.context = context;
         singleTransactionList = new ArrayList<>();
-        Log.i("AllTransactionsClass", "I started running");
 
         check = false;
         setTransactions(context);
@@ -78,7 +75,6 @@ public class AllTransactions {
                     TransactionClass.getInstance().setList(singleTransactionList); //declare singleTransactionList in TransactionClass so it can be accessed from anywhere
                     tempB.set(true);
                     check = tempB.get();
-                    Log.i(TAG, "I set check to true and shows: " + check);
                 },
 
                 error -> {
@@ -86,7 +82,6 @@ public class AllTransactions {
                 }
         );
         requestQueue.add(getRequest);
-        Log.i(TAG, "I stopped running");
         return tempB.get();
     }
 
@@ -111,7 +106,6 @@ public class AllTransactions {
     }
 
     public boolean getCheck() {
-        Log.i(TAG, "I returned val on getCheck: " + check);
         return check;
     }
 }

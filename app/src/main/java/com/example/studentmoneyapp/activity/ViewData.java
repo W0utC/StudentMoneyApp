@@ -33,7 +33,6 @@ import java.util.List;
 
 public class ViewData extends AppCompatActivity {
     ArrayList<SingleTransaction> transactions;
-    AnyChartView anyChartView;
 
     private RecyclerView transactionsRecView;
     private AnyChartView chartCircularGauge;
@@ -54,11 +53,8 @@ public class ViewData extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.pbCircularGaugeWeek);
         chartCircularGauge = (AnyChartView) findViewById(R.id.any_chart_view);
 
-        //setupCircularGauge();
-
         transactionsRecViewList = new ArrayList<>();
         transactionsRecView = findViewById(R.id.transactionRecViewAll);
-
     }
 
     @Override
@@ -141,7 +137,7 @@ public class ViewData extends AppCompatActivity {
         circularGauge.cap().radius("3%").enabled(true).fill("#545f69");
 
         circularGauge.range(0)
-                .from(0)        
+                .from(0)
                 .to(50)
                 .position("inside")
                 .fill("#009900 0.4")

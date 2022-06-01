@@ -181,7 +181,6 @@ public class ChartsDataHandler {
     }
 
     public void updateList(){
-        //transactions.clear();
         transactions = TransactionClass.getInstance().getList();
     }
 
