@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         allTransactions = new AllTransactions(getApplicationContext());
         playAudio();
     }
+    //
 
     @Override
     protected void onResume() {
